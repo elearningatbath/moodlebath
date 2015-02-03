@@ -3633,7 +3633,7 @@ function fullname($user, $override=false) {
     // This regular expression replacement is to fix problems such as 'James () Kirk' Where 'Tiberius' (middlename) has not been
     // filled in by a user.
     // The special characters are Japanese brackets that are common enough to make allowances for them (not covered by :punct:).
-    $patterns[] = '/[[:punct:]「」]*EMPTY[[:punct:]「」]*/u';
+	$patterns[] = '/[[:punct:]「」]*EMPTY[[:punct:]「」]*/u';
     // This regular expression is to remove any double spaces in the display name.
     $patterns[] = '/\s{2,}/u';
     foreach ($patterns as $pattern) {
@@ -4013,7 +4013,14 @@ function create_user_record($username, $password, $auth = 'manual') {
             unset($newuser->email);
         }
     }
-
+    //Bath mod - if email exists in database use blank
+    if(isset($newuser->email)) {
+    	$dupe = $DB->get_record('user',array('email'=>$newuser->email));
+    	if(is_object($dupe) && $dupe->email == $newuser->email){
+    		$newuser->email = '';
+    	}
+    }
+    //End Bath mod
     if (!isset($newuser->city)) {
         $newuser->city = '';
     }

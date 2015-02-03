@@ -1300,8 +1300,9 @@ function filter_phrases($text, &$link_array, $ignoretagsopen=NULL, $ignoretagscl
         }
 
         // Regular expression modifiers
-        $modifiers = ($linkobject->work_casesensitive) ? 's' : 'isu'; // works in unicode mode!
-
+       // $modifiers = ($linkobject->work_casesensitive) ? 's' : 'isu'; // works in unicode mode!
+        //Bath hack - remove 'u' unicode modifier due to unidentified server bug with unicode matches failing
+        $modifiers = ($linkobject->work_casesensitive) ? 's' : 'is'; // works in unicode mode!
         // Do we need to do a fullmatch?
         // If yes then go through and remove any non full matching entries
         if ($linkobject->work_fullmatch) {

@@ -34,5 +34,7 @@
         <Format displayName="Maxima" fileName="Maxima"></Format>
         <Format displayName="MoodleTex" fileName="MoodleTex"></Format>
         <Format displayName="ASCIIMathML" fileName="ASCIIMathML"></Format>
+        <!--  Added new Bath format for DragMath - UoB- Hittesh -->
+        <Format displayName="BathMathJax" fileName="BathMathJax"></Format>
     </Formats>
 </Config>

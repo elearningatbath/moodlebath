@@ -49,6 +49,9 @@ body.has_dock #page{padding:0;}
     -moz-border-radius-bottomleft: 6px;
     border-bottom-left-radius: 6px;
 }
+#dock .dockedtitle:hover{
+	background-color:none;
+}
 #dock .dockedtitle h2 {
     margin: 0;
     /*padding: 10px 3px;*/

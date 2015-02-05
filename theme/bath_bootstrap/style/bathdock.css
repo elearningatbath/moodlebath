@@ -36,6 +36,10 @@ body.has_dock #page{padding:0;}
     padding: 2px;
     padding-right: 0px;
 }
+/* To stop bootstrap base inherit - UoB*/
+#dock .dockeditem_container {
+margin-top: 0px;
+}
 #dock .dockedtitle {
     padding: 0 0 5px 0;
     cursor:pointer;

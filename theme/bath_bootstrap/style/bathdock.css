@@ -42,6 +42,7 @@ body.has_dock #page{padding:0;}
     margin:0;
     background-color: #aaa;
     background-image :none; /* To stop bootstrap base inherit*/
+    text-shadow: none; /* To stop bootstrap base inherit - UoB*/ 
     -webkit-border-top-left-radius: 6px;
     -moz-border-radius-topleft: 6px;
     border-top-left-radius: 6px;

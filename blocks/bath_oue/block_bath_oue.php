@@ -34,7 +34,7 @@ class block_bath_oue extends block_base
         $this->page->requires->js_init_call('M.OUE.init', array(
             $params
         ), false, $module);
-		$sotw_link = "https://www.bath.ac.uk/samis-sso/";
+		$sotw_link = "https://www.bath.ac.uk/samis-sso/eval";
 		$this->content = new stdClass;
 		$this->content->text = "<div  style=\"display:none;\" id=\"no_survey_results\">You have no unit evaluations pending</div>";
         $this->content->text .= "<div id=\"survey_loading\"></div>";
@@ -44,7 +44,6 @@ class block_bath_oue extends block_base
         $survey_message   = get_string('survey_message', 'block_bath_oue');
         $global_error_msg = get_config('bath_oue', 'global_error_msg');
         $oue_link_html    = "<div id =\"oue_link\" onClick=\"_gaq.push(['_trackEvent','OUE','clicked','Complete Now Button']);window.open('$sotw_link','OUE','resizable=yes,scrollbars=yes,width ='+document.documentElement.clientWidth +',height='+document.documentElement.clientHeight+'');return false;\">$oue_link_text</div>";
-		//$oue_link_span = "<span class = \"oue_link\">$oue_link_text</span>";
 		$bab_logo = $OUTPUT->pix_url('betteratbathlogo','block_bath_oue');
 		$bab_image_link = "<a onClick=\"_gaq.push(['_trackEvent','OUE','clicked','Better-at-Bath Logo']);\" href=\"http://www.bath.ac.uk/students/betteratbath/\" target=\"_blank\"><img src=\"$bab_logo\" alt=\"Better @ Bath\" /></a>"; 
         $this->content->text .= "<div style=\"display:none;\" id=\"global_error_msg\"> $global_error_msg</div>";

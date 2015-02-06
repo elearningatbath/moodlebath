@@ -566,7 +566,6 @@ class plagiarism_plugin_turnitin extends plagiarism_plugin {
             foreach ($items as $item) {
                 $fs = get_file_storage();
                 $file = $fs->get_file_by_hash($item->identifier);
-                var_dump($file);//Debug message - Hittesh
                 if ($file) {
                     $pid = plagiarism_update_record($item->cm, $item->userid, $file->get_pathnamehash(), $item->attempt+1);
                     if (!empty($pid)) {
@@ -1234,7 +1233,6 @@ function turnitin_send_file($pid, $plagiarismsettings, $file) {
     $tii['pln']     = $tii['uln'];
     //$tii['diagnostic'] = '1';
     $tiixml = turnitin_post_data($tii, $plagiarismsettings, $file, $pid);
-    var_dump($tiixml);//Debug message - hittesh
     if ($tiixml === false) {
         return false;
     }

@@ -45,7 +45,7 @@ class block_bath_oue extends block_base
         $global_error_msg = get_config('bath_oue', 'global_error_msg');
         $oue_link_html    = "<div id =\"oue_link\" onClick=\"_gaq.push(['_trackEvent','OUE','clicked','Complete Now Button']);window.open('$sotw_link','OUE','resizable=yes,scrollbars=yes,width ='+document.documentElement.clientWidth +',height='+document.documentElement.clientHeight+'');return false;\">$oue_link_text</div>";
 		$bab_logo = $OUTPUT->pix_url('betteratbathlogo','block_bath_oue');
-		$bab_image_link = "<a onClick=\"_gaq.push(['_trackEvent','OUE','clicked','Better-at-Bath Logo']);\" href=\"http://www.bath.ac.uk/students/betteratbath/\" target=\"_blank\"><img src=\"$bab_logo\" alt=\"Better @ Bath\" /></a>"; 
+		$bab_image_link = "<a onClick=\"ga(['_trackEvent','OUE','clicked','Better-at-Bath Logo']);\" href=\"http://www.bath.ac.uk/students/betteratbath/\" target=\"_blank\"><img src=\"$bab_logo\" alt=\"Better @ Bath\" /></a>"; 
         $this->content->text .= "<div style=\"display:none;\" id=\"global_error_msg\"> $global_error_msg</div>";
         $this->content->text .= "<div id=\"survey_container\" style=\"display:none;\">
 	    <p class=\"survey_progress\"></p>

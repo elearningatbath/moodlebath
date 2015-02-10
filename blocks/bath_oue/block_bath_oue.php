@@ -52,9 +52,9 @@ class block_bath_oue extends block_base
 		<progress id=\"progressbar\"  style=\"display:none;\" max=\"\" min =\"0\" value=\"\"><div id=\"svg-container\" style=\"position:relative;padding:10px\"></div></progress></div>";
 		$this->content->text .= "<div class=\"static_links\">";
 		$this->content->text .= $oue_link_html ;
-		$this->content->text .= "<div onClick=\"_gaq.push(['_trackEvent','OUE','clicked','Previous feedback link']);\" id = \"previous_feedback\"> See how departments have responded to <a target = \"_blank\" href=\"http://www.bath.ac.uk/students/student-feedback/unit-evaluation/feedback/\">previous feedback</a></div>";
+		$this->content->text .= "<div onClick=\"ga(['_trackEvent','OUE','clicked','Previous feedback link']);\" id = \"previous_feedback\"> See how departments have responded to <a target = \"_blank\" href=\"http://www.bath.ac.uk/students/student-feedback/unit-evaluation/feedback/\">previous feedback</a></div>";
 		$this->content->text .=  $bab_image_link;
-		$this->content->text .= "</div><p onClick=\"_gaq.push(['_trackEvent','OUE','clicked','Terms and Conditions link']);\" id=\"terms_conditions_draw\"><a href=\"http://www.bath.ac.uk/students/student-feedback/unit-evaluation/index.html\" target=\"_blank\" >* By completing your Unit Evaluations you help us become Better@Bath &amp; you are entered automatically into a prize draw for &pound;500</a></p>";
+		$this->content->text .= "</div><p onClick=\"ga(['_trackEvent','OUE','clicked','Terms and Conditions link']);\" id=\"terms_conditions_draw\"><a href=\"http://www.bath.ac.uk/students/student-feedback/unit-evaluation/index.html\" target=\"_blank\" >* By completing your Unit Evaluations you help us become Better@Bath &amp; you are entered automatically into a prize draw for &pound;500</a></p>";
         return $this->content;
     }
     public function has_config()

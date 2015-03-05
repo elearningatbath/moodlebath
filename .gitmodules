@@ -10,3 +10,6 @@
 [submodule "lib/editor/tinymce/plugins/panoptobutton"]
 	path = lib/editor/tinymce/plugins/panoptobutton
 	url = https://github.com/Panopto/Add-Panopto-Video--button-for-moodle-tinyMCE-editor
+[submodule "local/ltiprovider"]
+	path = local/ltiprovider
+	url = https://github.com/jleyva/moodle-local_ltiprovider

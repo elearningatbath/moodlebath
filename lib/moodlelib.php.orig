@@ -414,10 +414,14 @@ define('FEATURE_IDNUMBER', 'idnumber');
 define('FEATURE_GROUPS', 'groups');
 /** True if module supports groupings */
 define('FEATURE_GROUPINGS', 'groupings');
+<<<<<<< HEAD
 /**
  * True if module supports groupmembersonly (which no longer exists)
  * @deprecated Since Moodle 2.8
  */
+=======
+/** True if module supports groupmembersonly */
+>>>>>>> bath/corehacks/lib/moodlelib.php
 define('FEATURE_GROUPMEMBERSONLY', 'groupmembersonly');
 
 /** Type of module */
@@ -1620,7 +1624,10 @@ function purge_all_caches() {
     remove_dir($CFG->localcachedir, true);
     set_config('localcachedirpurged', time());
     make_localcache_directory('', true);
+<<<<<<< HEAD
     \core\task\manager::clear_static_caches();
+=======
+>>>>>>> bath/corehacks/lib/moodlelib.php
 }
 
 /**
@@ -2184,7 +2191,11 @@ function userdate($date, $format = '', $timezone = 99, $fixday = true, $fixhour 
  * @param string $format strftime format.
  * @param int|float $tz the numerical timezone, typically returned by {@link get_user_timezone_offset()}.
  * @return string the formatted date/time.
+<<<<<<< HEAD
  * @since Moodle 2.3.3
+=======
+ * @since 2.3.3
+>>>>>>> bath/corehacks/lib/moodlelib.php
  */
 function date_format_string($date, $format, $tz = 99) {
     global $CFG;
@@ -3138,7 +3149,11 @@ function require_login($courseorid = null, $autologinguest = true, $cm = null, $
         }
     }
 
+<<<<<<< HEAD
     // Check visibility of activity to current user; includes visible flag, conditional availability, etc.
+=======
+    // Check visibility of activity to current user; includes visible flag, groupmembersonly, conditional availability, etc.
+>>>>>>> bath/corehacks/lib/moodlelib.php
     if ($cm && !$cm->uservisible) {
         if ($preventredirect) {
             throw new require_login_exception('Activity is hidden');
@@ -3172,11 +3187,18 @@ function require_logout() {
     }
 
     // Execute hooks before action.
+<<<<<<< HEAD
     $authplugins = array();
     $authsequence = get_enabled_auth_plugins();
     foreach ($authsequence as $authname) {
         $authplugins[$authname] = get_auth_plugin($authname);
         $authplugins[$authname]->prelogout_hook();
+=======
+    $authsequence = get_enabled_auth_plugins();
+    foreach ($authsequence as $authname) {
+        $authplugin = get_auth_plugin($authname);
+        $authplugin->prelogout_hook();
+>>>>>>> bath/corehacks/lib/moodlelib.php
     }
 
     // Store info that gets removed during logout.
@@ -3192,19 +3214,25 @@ function require_logout() {
         $event->add_record_snapshot('sessions', $session);
     }
 
+<<<<<<< HEAD
     // Clone of $USER object to be used by auth plugins.
     $user = fullclone($USER);
 
+=======
+>>>>>>> bath/corehacks/lib/moodlelib.php
     // Delete session record and drop $_SESSION content.
     \core\session\manager::terminate_current();
 
     // Trigger event AFTER action.
     $event->trigger();
+<<<<<<< HEAD
 
     // Hook to execute auth plugins redirection after event trigger.
     foreach ($authplugins as $authplugin) {
         $authplugin->postlogout_hook($user);
     }
+=======
+>>>>>>> bath/corehacks/lib/moodlelib.php
 }
 
 /**
@@ -3254,6 +3282,7 @@ function require_course_login($courseorid, $autologinguest = true, $cm = null, $
 
     } else if ($issite) {
         // Login for SITE not required.
+<<<<<<< HEAD
         // We still need to instatiate PAGE vars properly so that things that rely on it like navigation function correctly.
         if (!empty($courseorid)) {
             if (is_object($courseorid)) {
@@ -3276,6 +3305,39 @@ function require_course_login($courseorid, $autologinguest = true, $cm = null, $
         }
         user_accesstime_log(SITEID);
         return;
+=======
+        if ($cm and empty($cm->visible)) {
+            // Hidden activities are not accessible without login.
+            require_login($courseorid, $autologinguest, $cm, $setwantsurltome, $preventredirect);
+        } else if ($cm and !empty($CFG->enablegroupmembersonly) and $cm->groupmembersonly) {
+            // Not-logged-in users do not have any group membership.
+            require_login($courseorid, $autologinguest, $cm, $setwantsurltome, $preventredirect);
+        } else {
+            // We still need to instatiate PAGE vars properly so that things that rely on it like navigation function correctly.
+            if (!empty($courseorid)) {
+                if (is_object($courseorid)) {
+                    $course = $courseorid;
+                } else {
+                    $course = clone($SITE);
+                }
+                if ($cm) {
+                    if ($cm->course != $course->id) {
+                        throw new coding_exception('course and cm parameters in require_course_login() call do not match!!');
+                    }
+                    $PAGE->set_cm($cm, $course);
+                    $PAGE->set_pagelayout('incourse');
+                } else {
+                    $PAGE->set_course($course);
+                }
+            } else {
+                // If $PAGE->course, and hence $PAGE->context, have not already been set up properly, set them up now.
+                $PAGE->set_course($PAGE->course);
+            }
+            // TODO: verify conditional activities here.
+            user_accesstime_log(SITEID);
+            return;
+        }
+>>>>>>> bath/corehacks/lib/moodlelib.php
 
     } else {
         // Course login always required.
@@ -3603,6 +3665,7 @@ function fullname($user, $override=false) {
     if (isset($CFG->fullnamedisplay)) {
         $template = $CFG->fullnamedisplay;
     }
+<<<<<<< HEAD
     // If the template is empty, or set to language, return the language string.
     if ((empty($template) || $template == 'language') && !$override) {
         return get_string('fullnamedisplay', null, $user);
@@ -3619,6 +3682,13 @@ function fullname($user, $override=false) {
         }
     }
 
+=======
+    // If the template is empty, or set to language, or $override is set, return the language string.
+    if (empty($template) || $template == 'language' || $override) {
+        return get_string('fullnamedisplay', null, $user);
+    }
+
+>>>>>>> bath/corehacks/lib/moodlelib.php
     $requirednames = array();
     // With each name, see if it is in the display name template, and add it to the required names array if it is.
     foreach ($allnames as $allname) {
@@ -3648,7 +3718,11 @@ function fullname($user, $override=false) {
     // This regular expression replacement is to fix problems such as 'James () Kirk' Where 'Tiberius' (middlename) has not been
     // filled in by a user.
     // The special characters are Japanese brackets that are common enough to make allowances for them (not covered by :punct:).
+<<<<<<< HEAD
     $patterns[] = '/[[:punct:]「」]*EMPTY[[:punct:]「」]*/u';
+=======
+	$patterns[] = '/[[:punct:]「」]*EMPTY[[:punct:]「」]*/u';
+>>>>>>> bath/corehacks/lib/moodlelib.php
     // This regular expression is to remove any double spaces in the display name.
     $patterns[] = '/\s{2,}/u';
     foreach ($patterns as $pattern) {
@@ -3672,12 +3746,18 @@ function fullname($user, $override=false) {
  * @param string $tableprefix table query prefix to use in front of each field.
  * @param string $prefix prefix added to the name fields e.g. authorfirstname.
  * @param string $fieldprefix sql field prefix e.g. id AS userid.
+<<<<<<< HEAD
  * @param bool $order moves firstname and lastname to the top of the array / start of the string.
  * @return array|string All name fields.
  */
 function get_all_user_name_fields($returnsql = false, $tableprefix = null, $prefix = null, $fieldprefix = null, $order = false) {
     // This array is provided in this order because when called by fullname() (above) if firstname is before
     // firstnamephonetic str_replace() will change the wrong placeholder.
+=======
+ * @return array|string All name fields.
+ */
+function get_all_user_name_fields($returnsql = false, $tableprefix = null, $prefix = null, $fieldprefix = null) {
+>>>>>>> bath/corehacks/lib/moodlelib.php
     $alternatenames = array('firstnamephonetic' => 'firstnamephonetic',
                             'lastnamephonetic' => 'lastnamephonetic',
                             'middlename' => 'middlename',
@@ -3692,6 +3772,7 @@ function get_all_user_name_fields($returnsql = false, $tableprefix = null, $pref
         }
     }
 
+<<<<<<< HEAD
     // If we want the end result to have firstname and lastname at the front / top of the result.
     if ($order) {
         // Move the last two elements (firstname, lastname) off the array and put them at the top.
@@ -3705,6 +3786,8 @@ function get_all_user_name_fields($returnsql = false, $tableprefix = null, $pref
         }
     }
 
+=======
+>>>>>>> bath/corehacks/lib/moodlelib.php
     // Create an sql field snippet if requested.
     if ($returnsql) {
         if ($tableprefix) {
@@ -3726,8 +3809,11 @@ function get_all_user_name_fields($returnsql = false, $tableprefix = null, $pref
 /**
  * Reduces lines of duplicated code for getting user name fields.
  *
+<<<<<<< HEAD
  * See also {@link user_picture::unalias()}
  *
+=======
+>>>>>>> bath/corehacks/lib/moodlelib.php
  * @param object $addtoobject Object to add user name fields to.
  * @param object $secondobject Object that contains user name field information.
  * @param string $prefix prefix to be added to all fields (including $additionalfields) e.g. authorfirstname.
@@ -4046,6 +4132,9 @@ function create_user_record($username, $password, $auth = 'manual') {
             unset($newuser->email);
         }
     }
+<<<<<<< HEAD
+
+=======
     //Bath mod - if email exists in database use blank
     if(isset($newuser->email)) {
     	$dupe = $DB->get_record('user',array('email'=>$newuser->email));
@@ -4054,6 +4143,7 @@ function create_user_record($username, $password, $auth = 'manual') {
     	}
     }
     //End Bath mod
+>>>>>>> bath/corehacks/lib/moodlelib.php
     if (!isset($newuser->city)) {
         $newuser->city = '';
     }
@@ -4099,10 +4189,16 @@ function create_user_record($username, $password, $auth = 'manual') {
  */
 function update_user_record($username) {
     global $DB, $CFG;
+<<<<<<< HEAD
+=======
+    require_once($CFG->dirroot."/user/profile/lib.php");
+    require_once($CFG->dirroot.'/user/lib.php');
+>>>>>>> bath/corehacks/lib/moodlelib.php
     // Just in case check text case.
     $username = trim(core_text::strtolower($username));
 
     $oldinfo = $DB->get_record('user', array('username' => $username, 'mnethostid' => $CFG->mnet_localhost_id), '*', MUST_EXIST);
+<<<<<<< HEAD
     return update_user_record_by_id($oldinfo->id);
 }
 
@@ -4124,6 +4220,12 @@ function update_user_record_by_id($id) {
     $userauth = get_auth_plugin($oldinfo->auth);
 
     if ($newinfo = $userauth->get_userinfo($oldinfo->username)) {
+=======
+    $newuser = array();
+    $userauth = get_auth_plugin($oldinfo->auth);
+
+    if ($newinfo = $userauth->get_userinfo($username)) {
+>>>>>>> bath/corehacks/lib/moodlelib.php
         $newinfo = truncate_userinfo($newinfo);
         $customfields = $userauth->get_custom_user_profile_fields();
 
@@ -4264,7 +4366,11 @@ function delete_user(stdClass $user) {
     // TODO: remove from cohorts using standard API here.
 
     // Remove user tags.
+<<<<<<< HEAD
     tag_set('user', $user->id, array(), 'core', $usercontext->id);
+=======
+    tag_set('user', $user->id, array());
+>>>>>>> bath/corehacks/lib/moodlelib.php
 
     // Unconditionally unenrol from all courses.
     enrol_user_delete($user);
@@ -4334,7 +4440,10 @@ function delete_user(stdClass $user) {
     $event = \core\event\user_deleted::create(
             array(
                 'objectid' => $user->id,
+<<<<<<< HEAD
                 'relateduserid' => $user->id,
+=======
+>>>>>>> bath/corehacks/lib/moodlelib.php
                 'context' => $usercontext,
                 'other' => array(
                     'username' => $user->username,
@@ -4392,7 +4501,11 @@ function guest_user() {
  *
  * Note: this function works only with non-mnet accounts!
  *
+<<<<<<< HEAD
  * @param string $username  User's username (or also email if $CFG->authloginviaemail enabled)
+=======
+ * @param string $username  User's username
+>>>>>>> bath/corehacks/lib/moodlelib.php
  * @param string $password  User's password
  * @param bool $ignorelockout useful when guessing is prevented by other mechanism such as captcha or SSO
  * @param int $failurereason login failure reason, can be used in renderers (it may disclose if account exists)
@@ -4402,6 +4515,7 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
     global $CFG, $DB;
     require_once("$CFG->libdir/authlib.php");
 
+<<<<<<< HEAD
     if ($user = get_complete_user_data('username', $username, $CFG->mnet_localhost_id)) {
         // we have found the user
 
@@ -4444,6 +4558,24 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
                     'other' => array('username' => $username, 'reason' => $failurereason)));
             $event->trigger();
             error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Disabled Login:  $username  ".$_SERVER['HTTP_USER_AGENT']);
+=======
+    $authsenabled = get_enabled_auth_plugins();
+
+    if ($user = get_complete_user_data('username', $username, $CFG->mnet_localhost_id)) {
+        // Use manual if auth not set.
+        $auth = empty($user->auth) ? 'manual' : $user->auth;
+        if (!empty($user->suspended)) {
+            add_to_log(SITEID, 'login', 'error', 'index.php', $username);
+            error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Suspended Login:  $username  ".$_SERVER['HTTP_USER_AGENT']);
+            $failurereason = AUTH_LOGIN_SUSPENDED;
+            return false;
+        }
+        if ($auth=='nologin' or !is_enabled_auth($auth)) {
+            add_to_log(SITEID, 'login', 'error', 'index.php', $username);
+            error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Disabled Login:  $username  ".$_SERVER['HTTP_USER_AGENT']);
+            // Legacy way to suspend user.
+            $failurereason = AUTH_LOGIN_SUSPENDED;
+>>>>>>> bath/corehacks/lib/moodlelib.php
             return false;
         }
         $auths = array($auth);
@@ -4451,6 +4583,7 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
     } else {
         // Check if there's a deleted record (cheaply), this should not happen because we mangle usernames in delete_user().
         if ($DB->get_field('user', 'id', array('username' => $username, 'mnethostid' => $CFG->mnet_localhost_id,  'deleted' => 1))) {
+<<<<<<< HEAD
             $failurereason = AUTH_LOGIN_NOUSER;
 
             // Trigger login failed event.
@@ -4458,6 +4591,18 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
                     'reason' => $failurereason)));
             $event->trigger();
             error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Deleted Login:  $username  ".$_SERVER['HTTP_USER_AGENT']);
+=======
+            error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Deleted Login:  $username  ".$_SERVER['HTTP_USER_AGENT']);
+            $failurereason = AUTH_LOGIN_NOUSER;
+            return false;
+        }
+
+        // Do not try to authenticate non-existent accounts when user creation is not disabled.
+        if (!empty($CFG->authpreventaccountcreation)) {
+            add_to_log(SITEID, 'login', 'error', 'index.php', $username);
+            error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Unknown user, can not create new accounts:  $username  ".$_SERVER['HTTP_USER_AGENT']);
+            $failurereason = AUTH_LOGIN_NOUSER;
+>>>>>>> bath/corehacks/lib/moodlelib.php
             return false;
         }
 
@@ -4473,6 +4618,7 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
     } else if ($user->id) {
         // Verify login lockout after other ways that may prevent user login.
         if (login_is_lockedout($user)) {
+<<<<<<< HEAD
             $failurereason = AUTH_LOGIN_LOCKOUT;
 
             // Trigger login failed event.
@@ -4481,6 +4627,11 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
             $event->trigger();
 
             error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Login lockout:  $username  ".$_SERVER['HTTP_USER_AGENT']);
+=======
+            add_to_log(SITEID, 'login', 'error', 'index.php', $username);
+            error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Login lockout:  $username  ".$_SERVER['HTTP_USER_AGENT']);
+            $failurereason = AUTH_LOGIN_LOCKOUT;
+>>>>>>> bath/corehacks/lib/moodlelib.php
             return false;
         }
     } else {
@@ -4500,7 +4651,11 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
             // User already exists in database.
             if (empty($user->auth)) {
                 // For some reason auth isn't set yet.
+<<<<<<< HEAD
                 $DB->set_field('user', 'auth', $auth, array('id' => $user->id));
+=======
+                $DB->set_field('user', 'auth', $auth, array('username' => $username));
+>>>>>>> bath/corehacks/lib/moodlelib.php
                 $user->auth = $auth;
             }
 
@@ -4510,6 +4665,7 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
 
             if ($authplugin->is_synchronised_with_external()) {
                 // Update user record from external DB.
+<<<<<<< HEAD
                 $user = update_user_record_by_id($user->id);
             }
         } else {
@@ -4528,6 +4684,13 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
             } else {
                 $user = create_user_record($username, $password, $auth);
             }
+=======
+                $user = update_user_record($username);
+            }
+        } else {
+            // Create account, we verified above that user creation is allowed.
+            $user = create_user_record($username, $password, $auth);
+>>>>>>> bath/corehacks/lib/moodlelib.php
         }
 
         $authplugin->sync_roles($user);
@@ -4539,21 +4702,30 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
 
         if (empty($user->id)) {
             $failurereason = AUTH_LOGIN_NOUSER;
+<<<<<<< HEAD
             // Trigger login failed event.
             $event = \core\event\user_login_failed::create(array('other' => array('username' => $username,
                     'reason' => $failurereason)));
             $event->trigger();
+=======
+>>>>>>> bath/corehacks/lib/moodlelib.php
             return false;
         }
 
         if (!empty($user->suspended)) {
             // Just in case some auth plugin suspended account.
+<<<<<<< HEAD
             $failurereason = AUTH_LOGIN_SUSPENDED;
             // Trigger login failed event.
             $event = \core\event\user_login_failed::create(array('userid' => $user->id,
                     'other' => array('username' => $username, 'reason' => $failurereason)));
             $event->trigger();
             error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Suspended Login:  $username  ".$_SERVER['HTTP_USER_AGENT']);
+=======
+            add_to_log(SITEID, 'login', 'error', 'index.php', $username);
+            error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Suspended Login:  $username  ".$_SERVER['HTTP_USER_AGENT']);
+            $failurereason = AUTH_LOGIN_SUSPENDED;
+>>>>>>> bath/corehacks/lib/moodlelib.php
             return false;
         }
 
@@ -4563,6 +4735,10 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
     }
 
     // Failed if all the plugins have failed.
+<<<<<<< HEAD
+=======
+    add_to_log(SITEID, 'login', 'error', 'index.php', $username);
+>>>>>>> bath/corehacks/lib/moodlelib.php
     if (debugging('', DEBUG_ALL)) {
         error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Failed Login:  $username  ".$_SERVER['HTTP_USER_AGENT']);
     }
@@ -4570,6 +4746,7 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
     if ($user->id) {
         login_attempt_failed($user);
         $failurereason = AUTH_LOGIN_FAILED;
+<<<<<<< HEAD
         // Trigger login failed event.
         $event = \core\event\user_login_failed::create(array('userid' => $user->id,
                 'other' => array('username' => $username, 'reason' => $failurereason)));
@@ -4580,6 +4757,10 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
         $event = \core\event\user_login_failed::create(array('other' => array('username' => $username,
                 'reason' => $failurereason)));
         $event->trigger();
+=======
+    } else {
+        $failurereason = AUTH_LOGIN_NOUSER;
+>>>>>>> bath/corehacks/lib/moodlelib.php
     }
 
     return false;
@@ -4661,6 +4842,41 @@ function password_is_legacy_hash($password) {
 }
 
 /**
+<<<<<<< HEAD
+=======
+ * Checks whether the password compatibility library will work with the current
+ * version of PHP. This cannot be done using PHP version numbers since the fix
+ * has been backported to earlier versions in some distributions.
+ *
+ * See https://github.com/ircmaxell/password_compat/issues/10 for more details.
+ *
+ * @return bool True if the library is NOT supported.
+ */
+function password_compat_not_supported() {
+
+    $hash = '$2y$04$usesomesillystringfore7hnbRJHxXVLeakoG8K30oukPsA.ztMG';
+
+    // Create a one off application cache to store bcrypt support status as
+    // the support status doesn't change and crypt() is slow.
+    $cache = cache::make_from_params(cache_store::MODE_APPLICATION, 'core', 'password_compat');
+
+    if (!$bcryptsupport = $cache->get('bcryptsupport')) {
+        $test = crypt('password', $hash);
+        // Cache string instead of boolean to avoid MDL-37472.
+        if ($test == $hash) {
+            $bcryptsupport = 'supported';
+        } else {
+            $bcryptsupport = 'not supported';
+        }
+        $cache->set('bcryptsupport', $bcryptsupport);
+    }
+
+    // Return true if bcrypt *not* supported.
+    return ($bcryptsupport !== 'supported');
+}
+
+/**
+>>>>>>> bath/corehacks/lib/moodlelib.php
  * Compare password against hash stored in user object to determine if it is valid.
  *
  * If necessary it also updates the stored hash to the current format.
@@ -4734,6 +4950,18 @@ function hash_internal_user_password($password, $fasthash = false) {
     global $CFG;
     require_once($CFG->libdir.'/password_compat/lib/password.php');
 
+<<<<<<< HEAD
+=======
+    // Use the legacy hashing algorithm (md5) if PHP is not new enough to support bcrypt properly.
+    if (password_compat_not_supported()) {
+        if (isset($CFG->passwordsaltmain)) {
+            return md5($password.$CFG->passwordsaltmain);
+        } else {
+            return md5($password);
+        }
+    }
+
+>>>>>>> bath/corehacks/lib/moodlelib.php
     // Set the cost factor to 4 for fast hashing, otherwise use default cost.
     $options = ($fasthash) ? array('cost' => 4) : array();
 
@@ -4760,6 +4988,7 @@ function hash_internal_user_password($password, $fasthash = false) {
  *
  * @param stdClass $user User object (password property may be updated).
  * @param string $password Plain text password.
+<<<<<<< HEAD
  * @param bool $fasthash If true, use a low cost factor when generating the hash
  *                       This is much faster to generate but makes the hash
  *                       less secure. It is used when lots of hashes need to
@@ -4776,10 +5005,23 @@ function update_internal_user_password($user, $password, $fasthash = false) {
                 DEBUG_DEVELOPER);
         $user->auth = $DB->get_field('user', 'auth', array('id' => $user->id));
     }
+=======
+ * @return bool Always returns true.
+ */
+function update_internal_user_password($user, $password) {
+    global $CFG, $DB;
+    require_once($CFG->libdir.'/password_compat/lib/password.php');
+
+    // Use the legacy hashing algorithm (md5) if PHP doesn't support bcrypt properly.
+    $legacyhash = password_compat_not_supported();
+
+    // Figure out what the hashed password should be.
+>>>>>>> bath/corehacks/lib/moodlelib.php
     $authplugin = get_auth_plugin($user->auth);
     if ($authplugin->prevent_local_passwords()) {
         $hashedpassword = AUTH_PASSWORD_NOT_CACHED;
     } else {
+<<<<<<< HEAD
         $hashedpassword = hash_internal_user_password($password, $fasthash);
     }
 
@@ -4797,6 +5039,22 @@ function update_internal_user_password($user, $password, $fasthash = false) {
         // While creating new user, password in unset in $user object, to avoid
         // saving it with user_create()
         $passwordchanged = true;
+=======
+        $hashedpassword = hash_internal_user_password($password);
+    }
+
+    if ($legacyhash || $hashedpassword == AUTH_PASSWORD_NOT_CACHED) {
+        $passwordchanged = ($user->password !== $hashedpassword);
+        $algorithmchanged = false;
+    } else {
+        if (isset($user->password)) {
+            // If verification fails then it means the password has changed.
+            $passwordchanged = !password_verify($password, $user->password);
+            $algorithmchanged = password_needs_rehash($user->password, PASSWORD_DEFAULT);
+        } else {
+            $passwordchanged = true;
+        }
+>>>>>>> bath/corehacks/lib/moodlelib.php
     }
 
     if ($passwordchanged || $algorithmchanged) {
@@ -4804,8 +5062,17 @@ function update_internal_user_password($user, $password, $fasthash = false) {
         $user->password = $hashedpassword;
 
         // Trigger event.
+<<<<<<< HEAD
         $user = $DB->get_record('user', array('id' => $user->id));
         \core\event\user_password_updated::create_from_user($user)->trigger();
+=======
+        $event = \core\event\user_updated::create(array(
+             'objectid' => $user->id,
+             'context' => context_user::instance($user->id)
+        ));
+        $event->add_record_snapshot('user', $user);
+        $event->trigger();
+>>>>>>> bath/corehacks/lib/moodlelib.php
     }
 
     return true;
@@ -4959,7 +5226,10 @@ function set_login_session_preferences() {
     $SESSION->justloggedin = true;
 
     unset($SESSION->lang);
+<<<<<<< HEAD
     unset($SESSION->forcelang);
+=======
+>>>>>>> bath/corehacks/lib/moodlelib.php
     unset($SESSION->load_navigation_admin);
 }
 
@@ -5001,11 +5271,14 @@ function delete_course($courseorid, $showfeedback = true) {
     $DB->delete_records("course", array("id" => $courseid));
     $DB->delete_records("course_format_options", array("courseid" => $courseid));
 
+<<<<<<< HEAD
     // Reset all course related caches here.
     if (class_exists('format_base', false)) {
         format_base::reset_course_cache($courseid);
     }
 
+=======
+>>>>>>> bath/corehacks/lib/moodlelib.php
     // Trigger a course deleted event.
     $event = \core\event\course_deleted::create(array(
         'objectid' => $course->id,
@@ -5146,6 +5419,15 @@ function remove_course_contents($courseid, $showfeedback = true, array $options 
     $DB->delete_records_select('course_modules_completion',
            'coursemoduleid IN (SELECT id from {course_modules} WHERE course=?)',
            array($courseid));
+<<<<<<< HEAD
+=======
+    $DB->delete_records_select('course_modules_availability',
+           'coursemoduleid IN (SELECT id from {course_modules} WHERE course=?)',
+           array($courseid));
+    $DB->delete_records_select('course_modules_avail_fields',
+           'coursemoduleid IN (SELECT id from {course_modules} WHERE course=?)',
+           array($courseid));
+>>>>>>> bath/corehacks/lib/moodlelib.php
 
     // Remove course-module data.
     $cms = $DB->get_records('course_modules', array('course' => $course->id));
@@ -5232,6 +5514,10 @@ function remove_course_contents($courseid, $showfeedback = true, array $options 
     // This array stores the tables that need to be cleared, as
     // table_name => column_name that contains the course id.
     $tablestoclear = array(
+<<<<<<< HEAD
+=======
+        'log' => 'course',               // Course logs (NOTE: this might be changed in the future).
+>>>>>>> bath/corehacks/lib/moodlelib.php
         'backup_courses' => 'courseid',  // Scheduled backup stuff.
         'user_lastaccess' => 'courseid', // User access info.
     );
@@ -5254,7 +5540,17 @@ function remove_course_contents($courseid, $showfeedback = true, array $options 
     }
     $DB->update_record('course', $oldcourse);
 
+<<<<<<< HEAD
     // Delete course sections.
+=======
+    // Delete course sections and availability options.
+    $DB->delete_records_select('course_sections_availability',
+           'coursesectionid IN (SELECT id from {course_sections} WHERE course=?)',
+           array($course->id));
+    $DB->delete_records_select('course_sections_avail_fields',
+           'coursesectionid IN (SELECT id from {course_sections} WHERE course=?)',
+           array($course->id));
+>>>>>>> bath/corehacks/lib/moodlelib.php
     $DB->delete_records('course_sections', array('course' => $course->id));
 
     // Delete legacy, section and any other course files.
@@ -5380,6 +5676,14 @@ function reset_course_userdata($data) {
         $status[] = array('component' => $componentstr, 'item' => get_string('datechanged'), 'error' => false);
     }
 
+<<<<<<< HEAD
+=======
+    if (!empty($data->reset_logs)) {
+        $DB->delete_records('log', array('course' => $data->courseid));
+        $status[] = array('component' => $componentstr, 'item' => get_string('deletelogs'), 'error' => false);
+    }
+
+>>>>>>> bath/corehacks/lib/moodlelib.php
     if (!empty($data->reset_events)) {
         $DB->delete_records('event', array('courseid' => $data->courseid));
         $status[] = array('component' => $componentstr, 'item' => get_string('deleteevents', 'calendar'), 'error' => false);
@@ -5780,11 +6084,14 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
         return false;
     }
 
+<<<<<<< HEAD
     if (defined('BEHAT_SITE_RUNNING')) {
         // Fake email sending in behat.
         return true;
     }
 
+=======
+>>>>>>> bath/corehacks/lib/moodlelib.php
     if (!empty($CFG->noemailever)) {
         // Hidden setting for development sites, set in config.php if needed.
         debugging('Not sending email due to $CFG->noemailever config setting', DEBUG_NORMAL);
@@ -5985,6 +6292,7 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
         }
         return true;
     } else {
+<<<<<<< HEAD
         // Trigger event for failing to send email.
         $event = \core\event\email_failed::create(array(
             'context' => context_system::instance(),
@@ -5997,6 +6305,9 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
             )
         ));
         $event->trigger();
+=======
+        add_to_log(SITEID, 'library', 'mailer', qualified_me(), 'ERROR: '. $mail->ErrorInfo);
+>>>>>>> bath/corehacks/lib/moodlelib.php
         if (CLI_SCRIPT) {
             mtrace('Error: lib/moodlelib.php email_to_user(): '.$mail->ErrorInfo);
         }
@@ -6049,7 +6360,21 @@ function setnew_password_and_mail($user, $fasthash = false) {
 
     $newpassword = generate_password();
 
+<<<<<<< HEAD
     update_internal_user_password($user, $newpassword, $fasthash);
+=======
+    $hashedpassword = hash_internal_user_password($newpassword, $fasthash);
+    $DB->set_field('user', 'password', $hashedpassword, array('id' => $user->id));
+    $user->password = $hashedpassword;
+
+    // Trigger event.
+    $event = \core\event\user_updated::create(array(
+        'objectid' => $user->id,
+        'context' => context_user::instance($user->id)
+    ));
+    $event->add_record_snapshot('user', $user);
+    $event->trigger();
+>>>>>>> bath/corehacks/lib/moodlelib.php
 
     $a = new stdClass();
     $a->firstname   = fullname($user, true);
@@ -6726,6 +7051,7 @@ function clean_filename($string) {
 function current_language() {
     global $CFG, $USER, $SESSION, $COURSE;
 
+<<<<<<< HEAD
     if (!empty($SESSION->forcelang)) {
         // Allows overriding course-forced language (useful for admins to check
         // issues in courses whose language they don't understand).
@@ -6734,6 +7060,9 @@ function current_language() {
         $return = $SESSION->forcelang;
 
     } else if (!empty($COURSE->id) and $COURSE->id != SITEID and !empty($COURSE->lang)) {
+=======
+    if (!empty($COURSE->id) and $COURSE->id != SITEID and !empty($COURSE->lang)) {
+>>>>>>> bath/corehacks/lib/moodlelib.php
         // Course language can override all other settings for this page.
         $return = $COURSE->lang;
 
@@ -6765,10 +7094,21 @@ function current_language() {
  * @return string
  */
 function get_parent_language($lang=null) {
+<<<<<<< HEAD
 
     // Let's hack around the current language.
     if (!empty($lang)) {
         $oldforcelang = force_current_language($lang);
+=======
+    global $COURSE, $SESSION;
+
+    // Let's hack around the current language.
+    if (!empty($lang)) {
+        $oldcourselang  = empty($COURSE->lang) ? '' : $COURSE->lang;
+        $oldsessionlang = empty($SESSION->lang) ? '' : $SESSION->lang;
+        $COURSE->lang  = '';
+        $SESSION->lang = $lang;
+>>>>>>> bath/corehacks/lib/moodlelib.php
     }
 
     $parentlang = get_string('parentlanguage', 'langconfig');
@@ -6778,13 +7118,19 @@ function get_parent_language($lang=null) {
 
     // Let's hack around the current language.
     if (!empty($lang)) {
+<<<<<<< HEAD
         force_current_language($oldforcelang);
+=======
+        $COURSE->lang  = $oldcourselang;
+        $SESSION->lang = $oldsessionlang;
+>>>>>>> bath/corehacks/lib/moodlelib.php
     }
 
     return $parentlang;
 }
 
 /**
+<<<<<<< HEAD
  * Force the current language to get strings and dates localised in the given language.
  *
  * After calling this function, all strings will be provided in the given language
@@ -6807,6 +7153,8 @@ function force_current_language($language) {
 }
 
 /**
+=======
+>>>>>>> bath/corehacks/lib/moodlelib.php
  * Returns current string_manager instance.
  *
  * The param $forcereload is needed for CLI installer only where the string_manager instance
@@ -7767,6 +8115,7 @@ function moodle_setlocale($locale='') {
  */
 function count_words($string) {
     $string = strip_tags($string);
+<<<<<<< HEAD
     // Decode HTML entities.
     $string = html_entity_decode($string);
     // Replace underscores (which are classed as word characters) with spaces.
@@ -7777,6 +8126,9 @@ function count_words($string) {
     $string = preg_replace('/([0-9])[.,]([0-9])/u', '$1$2', $string);
 
     return count(preg_split('/\w\b/u', $string)) - 1;
+=======
+    return count(preg_split("/\w\b/", $string)) - 1;
+>>>>>>> bath/corehacks/lib/moodlelib.php
 }
 
 /**
@@ -8657,6 +9009,7 @@ function getremoteaddr($default='0.0.0.0') {
     }
     if (!($variablestoskip & GETREMOTEADDR_SKIP_HTTP_X_FORWARDED_FOR)) {
         if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+<<<<<<< HEAD
             $forwardedaddresses = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
             $address = $forwardedaddresses[0];
 
@@ -8674,6 +9027,9 @@ function getremoteaddr($default='0.0.0.0') {
             }
 
             $address = cleanremoteaddr($address);
+=======
+            $address = cleanremoteaddr($_SERVER['HTTP_X_FORWARDED_FOR']);
+>>>>>>> bath/corehacks/lib/moodlelib.php
             return $address ? $address : $default;
         }
     }

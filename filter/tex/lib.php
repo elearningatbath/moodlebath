@@ -63,6 +63,7 @@ function filter_tex_get_executable($debug=false) {
         case "Linux":   return "$CFG->dirroot/filter/tex/mimetex.linux";
         case "Darwin":  return "$CFG->dirroot/filter/tex/mimetex.darwin";
         case "FreeBSD": return "$CFG->dirroot/filter/tex/mimetex.freebsd";
+        case "SunOS" : return "$CFG->dirroot/filter/tex/mimetex.sunos";
     }
 
     print_error('mimetexisnotexist', 'error');

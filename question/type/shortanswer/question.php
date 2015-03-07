@@ -102,7 +102,9 @@ class qtype_shortanswer_question extends question_graded_by_strategy
             $escapedbits[] = preg_quote(str_replace('\*', '*', $bit), '|');
         }
         // Put it back together to make the regexp.
-        $regexp = '|^' . implode('.*', $escapedbits) . '$|u';
+        //$regexp = '|^' . implode('.*', $escapedbits) . '$|u';
+        //FixME Core fix for #1040. I am fixing this now so it works on our Live server, but we need to get to the bottom of this as its only happening on the live server and not on any of the test servers - Hittesh
+        $regexp = '|^' . implode('.*', $escapedbits) . '$|';
 
         // Make the match insensitive if requested to.
         if ($ignorecase) {

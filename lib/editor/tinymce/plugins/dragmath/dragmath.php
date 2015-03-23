@@ -73,7 +73,9 @@ header('X-UA-Compatible: IE=edge');
     <param name="java_code" value="Display/MainApplet.class" />
     <param name="java_archive" value="DragMath.jar,lib/AbsoluteLayout.jar,lib/swing-layout-1.0.jar,lib/jdom.jar,lib/jep.jar" />
     <param name="language" value="<?php echo $lang; ?>" />
-    <param name="outputFormat" value="MoodleTex" />
+    <!--<param name="outputFormat" value="MoodleTex" />-->
+    <!-- Changing the default ouput format to BathMathJax for UoB -->
+    <param name="outputFormat" value="BathMathJax" />
     <?php print_string('javaneeded', 'tinymce_dragmath', '<a href="http://www.java.com">Java.com</a>')?>
 </object>
 <form name="form" action="#">

@@ -1,6 +1,6 @@
 [submodule "blocks/turnitin"]
 	path = blocks/turnitin
-	url = https://github.com/jmcgettrick/moodle-block_turnitin
+	url = https://github.com/jmcgettrick/MoodleDirectV2
 [submodule "blocks/panopto"]
 	path = blocks/panopto
 	url = https://github.com/Panopto/Moodle-2.0-Plugin-for-Panopto

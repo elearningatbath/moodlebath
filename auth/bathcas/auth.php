@@ -56,7 +56,7 @@ class auth_plugin_bathcas extends auth_plugin_cas {
     
     function get_userinfo($username) {
     	//$textlib = textlib_get_instance();
-    	$extusername = textlib::convert($username, 'utf-8', $this->config->ldapencoding);
+    	$extusername = core_text::convert($username, 'utf-8', $this->config->ldapencoding);
     
     	$ldapconnection = $this->ldap_connect();
     	if(!($user_dn = $this->ldap_find_userdn($ldapconnection, $extusername))) {

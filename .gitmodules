@@ -1,9 +1,3 @@
-[submodule "local/--name"]
-	path = local/--name
-	url = https://github.com/jleyva/moodle-local_mobile.git
-[submodule "local/local"]
-	path = local/local
-	url = https://github.com/jleyva/moodle-local_mobile.git
 [submodule "local/mobile"]
 	path = local/mobile
 	url = https://github.com/jleyva/moodle-local_mobile.git

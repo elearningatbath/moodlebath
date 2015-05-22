@@ -51,7 +51,7 @@ class auth_plugin_bathcas extends auth_plugin_cas {
             }
         //
         $this->connectCAS();
-        return phpCAS::isAuthenticated() && (trim(textlib::strtolower(phpCAS::getUser())) == $username);
+        return phpCAS::isAuthenticated() && (trim(core_text::strtolower(phpCAS::getUser())) == $username);
     }
     
     function get_userinfo($username) {
@@ -122,9 +122,9 @@ class auth_plugin_bathcas extends auth_plugin_cas {
     				continue; // wrong data mapping!
     			}
     			if (is_array($entry[$value])) {
-    				$newval = textlib::convert($entry[$value][0], $this->config->ldapencoding, 'utf-8');
+    				$newval = core_text::convert($entry[$value][0], $this->config->ldapencoding, 'utf-8');
     			} else {
-    				$newval = textlib::convert($entry[$value], $this->config->ldapencoding, 'utf-8');
+    				$newval = core_text::convert($entry[$value], $this->config->ldapencoding, 'utf-8');
     			}
     			if (!empty($newval)) {
     				// favour ldap entries that are set

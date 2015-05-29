@@ -1,0 +1,86 @@
+/*Bath CSS Changes*/
+@font-face{
+	font-family: Raleway;
+	src: url([[font:theme|Raleway-Light.ttf]]);
+}
+body{
+	background: url("http://bath.ac.uk/common/images/style/students-landing-page/body_bg-fyse.gif") top left #ccc;
+	
+}
+#page-header{width:100%;float:left;}
+#page-content{background:#FFF;padding:5px;box-shadow: 0px 0px 0.375rem #444;}
+h2{
+	color: #5FA8D7;
+	
+	  font-family: Raleway, sans-serif;
+	  font-style: normal;
+	
+}
+/*Banner*/
+.navbar{
+	max-width:1680px;padding-left:20px;padding-right:10px; margin: 0px auto;
+}
+.navbar-inner{
+	background:url("http://bath.ac.uk/common/images/style/sectionTitle_bg.png") repeat-x scroll bottom left #5fa8d7 ;
+	
+} 
+.navbar .nav>li>a{
+	color: #FFF;
+	text-shadow:none;
+}
+header{}
+.navbar .nav li.dropdown.open>.dropdown-toggle{
+	background:#FFF;
+}
+/* All submit buttons */
+input[type="submit"] {
+  color: #fff;
+  background-color: #f8941d;
+  background-image:none;
+  /*padding: 0;*/
+  text-shadow:none;
+  border-radius:0;
+  border-color:none;
+}
+.navbar .brand{
+	text-shadow:none;
+	font-size:14px;
+	color: #FFF;
+}
+
+.block{
+	background: #FFF;
+	border: 2px solid #5fa8d7;
+}
+.coursebox{border: 1px solid rgba(95,168,215,0.3)}
+.block .header .title h2{
+	color: #5fa8d7;
+	letter-spacing: 0.025rem;
+	text-transform: capitalize;
+}
+
+#region-main{
+	background: #FFF;
+}
+
+/* Custom CSS
+-------------------------*/
+a.logo {
+    background: url([[setting:logo]]) no-repeat 0 0;
+    display: block;
+    float: left;
+    height: 75px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.dir-rtl a.logo {
+    background: url([[setting:logo]]) no-repeat 100% 0;
+    display: block;
+    float: right;
+}
+
+/* Custom CSS Settings
+-------------------------*/
+[[setting:customcss]]

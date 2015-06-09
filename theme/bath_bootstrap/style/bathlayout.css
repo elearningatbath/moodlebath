@@ -237,3 +237,12 @@ vertical-align: baseline;
 .mform fieldset div {
     margin: 0 10px 10px;
 }
+/*Bath Alert Message */
+#bath-alert{
+	font-size:large;
+	padding:10px;
+	text-align:center;
+	font-weight:bold;
+	border: 1px dashed;
+	color:#ED5656;
+}

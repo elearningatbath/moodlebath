@@ -69,6 +69,13 @@ echo $OUTPUT->doctype() ?>
             <div class="breadcrumb-nav"><?php echo $OUTPUT->navbar(); ?></div>
             <nav class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></nav>
         </div>
+<!-- Bath Alert message when needed-->
+<?php
+        if(!empty($CFG->alert)){
+?>              
+        <div id="bath-alert"><span><?php echo $CFG->alert;?></span></div>
+<?php           } ?>
+
     <div id="page-content" class="row-fluid">
         <section id="region-main" class="span9<?php if ($left) { echo ' pull-right'; } ?>">
         	<div class="region-content"> <!-- Added Bath--> 

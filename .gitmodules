@@ -3,4 +3,4 @@
 	url = https://github.com/jleyva/moodle-local_mobile.git
 [submodule "blocks/panopto"]
 	path = blocks/panopto
-	url = https://github.com/Panopto/Moodle-2.0-Plugin-for-Panopto
+	url = https://github.bath.ac.uk/e-learning/panopto-block.git

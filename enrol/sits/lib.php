@@ -239,10 +239,13 @@ class enrol_sits_plugin extends enrol_plugin implements i_sits_sync
     	}
     
     	if ($inserted) {
-    		// add extra info and trigger event
-    		$ue->courseid  = $courseid;
-    		$ue->enrol     = $name;
-    		events_trigger('user_enrolled', $ue);
+            $event = \core\event\user_enrolment_created::create(array(
+                'objectid' => $ue->id,
+                'contextid' => $context->id,
+                'relateduserid' => $ue->userid,
+                'other' => array('enrol' => 'sits')
+            ));
+            $event->trigger();
     	}
     
     	// reset primitive require_login() caching

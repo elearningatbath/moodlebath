@@ -3,7 +3,7 @@
 	url = https://github.com/jmcgettrick/moodle-block_turnitin
 [submodule "blocks/panopto"]
 	path = blocks/panopto
-	url = https://github.bath.ac.uk/e-learning/panopto-block
+	url = https://github.bath.ac.uk/e-learning/panopto-block@c5732c00c0
 [submodule "local/ltiprovider"]
 	path = local/ltiprovider
 	url = https://github.com/jleyva/moodle-local_ltiprovider

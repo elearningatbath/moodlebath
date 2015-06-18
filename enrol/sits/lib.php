@@ -1322,7 +1322,7 @@ sql;
     		$this->report->log_report(1, 'Could get mapping enrols for mapping id  ' . $mapping->id);
     		return false;
     	}
-    	
+    	$context = context_course::instance($mapping->courseid,MUST_EXIST);
     	foreach($mapping_enrols as $enrol){
 			
 			// #903 - Staff memberships not migrated 
@@ -1340,10 +1340,30 @@ sql;
 			{
 				$this->report->log_report(1, 'Could not delete user from group ' . $enrol->u_enrol_id);
 			}
+            //Get user_enrolment details to be used by the delete event
+            $ue = $DB->get_record('user_enrolments',array('id' => $enrol->u_enrol_id));
     		if(!$DB->delete_records('user_enrolments', array('id' => $enrol->u_enrol_id))){
     			$this->report->log_report(1, 'Could not delete user_enrolments record with id  ' . $enrol->u_enrol_id);
     			return false;
     		}
+            else{
+                //Trigger the event once a user is unenrolled from the course
+                 $event = core\event\user_enrolment_deleted::create(
+                     array(
+                         'courseid' => $mapping->courseid,
+                         'context' => $context,
+                         'relateduserid' => $userid,
+                         'objectid' => $enrol->u_enrol_id,
+                         'other' => array(
+                                'enrol' =>  'sits',
+                                'userenrolment' => (array)$ue
+                         )
+                     )
+                 );
+                $event->trigger();
+            }
+
+
     		if(!$DB->delete_records('role_assignments', array('id' => $enrol->ra_id))){
     			$this->report->log_report(1, 'Could not delete user_enrolments record with id  ' . $enrol->ra_id);
     			return false;

@@ -7,3 +7,6 @@
 [submodule "local/ltiprovider"]
 	path = local/ltiprovider
 	url = https://github.com/jleyva/moodle-local_ltiprovider
+[submodule "turnitinv2"]
+	path = turnitinv2
+	url = https://github.com/jmcgettrick/MoodleDirectV2

@@ -32,7 +32,11 @@ class block_gradeout extends block_base {
 		return true;
 	}
 
-	function cron() {
+    /**
+     * Run the cron for Gradeout to transfer grades from Moodle to SAMIS
+     * @return bool
+     */
+    function cron() {
 		global $CFG, $DB;
 		global $last_cron_time;
 		// these includes should point to the core classes in sits block (or local?)
@@ -87,7 +91,13 @@ class block_gradeout extends block_base {
 		return true;
 	}
 
-	function grade_quiz(&$sits,&$quiz,&$students,&$cohort){
+    /**
+     * @param $sits
+     * @param $quiz
+     * @param $students
+     * @param $cohort
+     */
+    function grade_quiz(&$sits,&$quiz,&$students,&$cohort){
 
 		global $CFG, $last_cron_time,$DB;
 		// this takes raw mark from all first successful attempts since last cron
@@ -113,7 +123,15 @@ class block_gradeout extends block_base {
 		}
 	}
 
-	function update_record(&$sits,&$student,&$grade,&$cohort){
+    /**
+     * Updates SAMIS Record
+     * @param $sits
+     * @param $student
+     * @param $grade
+     * @param $cohort
+     * @return bool
+     */
+    function update_record(&$sits,&$student,&$grade,&$cohort){
 		if(!$sits->update_agreed_grade($student,$grade,$cohort)){
 			$this->sas1b_warning($student,$cohort);
 			return $sits->insert_agreed_grade($student,$grade,$cohort);
@@ -122,7 +140,12 @@ class block_gradeout extends block_base {
 		}
 	}
 
-	function sas1b_warning(&$student,&$cohort){
+    /**
+     * Sends a warning email about SAS1B
+     * @param $student
+     * @param $cohort
+     */
+    function sas1b_warning(&$student,&$cohort){
         global $CFG;
 		$warn_users = explode(',', $CFG->block_gradeout_warn_user);
 		foreach($warn_users as $email){

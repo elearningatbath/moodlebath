@@ -164,13 +164,9 @@ class block_gradeout extends block_base {
 			return $this->content;
 		}
 		global $CFG, $COURSE;
-		require_once($CFG->dirroot.'/lib/gradelib.php');
-		$context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
-		$students = get_role_users(5 , $context);
-		$now = time();
-		$body_content='';
+        $context = context_course::instance($COURSE->id);
 		$this->content =  new stdClass;
-		$this->content->text = $body_content;
+		$this->content->text = '';
 
 		if(isset($this->config->text)){
 			$this->content->footer = $this->config->text;

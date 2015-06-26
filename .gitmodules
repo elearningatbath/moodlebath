@@ -1,0 +1,3 @@
+[submodule "local/mobile"]
+	path = local/mobile
+	url = https://github.com/jleyva/moodle-local_mobile.git

@@ -65,4 +65,13 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
+    
+    // Bath Alert message
+    $name = 'theme_bath_bootstrap/alertmessage';
+    $title = get_string('alertmessage', 'theme_bath_bootstrap');
+    $description = get_string('alertmessagedesc', 'theme_bath_bootstrap');
+    $default = '';
+    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($setting);
 }

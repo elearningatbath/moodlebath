@@ -70,9 +70,9 @@ echo $OUTPUT->doctype() ?>
         </div>
 <!-- Bath Alert message when needed-->
 <?php 
-	if(!empty($CFG->alert)){
+	if(!empty($html->alertmessage)){
 ?>
-	<div id="bath-alert"><span><?php echo $CFG->alert;?></span></div>
+	<div id="bath-alert"><span><?php echo $CFG->alertmessage;?></span></div>
 <?php		} ?>
            <div id="page-content" class="row-fluid">
         <section id="region-main" class="span12">

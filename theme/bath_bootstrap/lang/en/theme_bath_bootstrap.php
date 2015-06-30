@@ -64,4 +64,6 @@ $string['pluginname'] = 'Bath Bootstrap';
 
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
+$string['alertmessage'] = 'Alert message';
+$string['alertmessagedesc'] = 'This will show up between the header and center section of every page';
 

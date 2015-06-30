@@ -30,7 +30,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2014051800;
+$plugin->version   = 2015063000;
 $plugin->requires  = 2013050100;
 $plugin->component = 'theme_bath_bootstrap';
 $plugin->dependencies = array(

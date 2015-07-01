@@ -9,3 +9,7 @@
 	path = mod/turnitintooltwo
 	url = https://github.bath.ac.uk/e-learning/mod_turntintooltwo
 	branch = turnitintooltwo-mod-bath
+[submodule "plagiarism/turnitin"]
+	path = plagiarism/turnitin
+	url = https://github.bath.ac.uk/e-learning/plagiarism_turnitin
+	branch = pp-turnitin-bath

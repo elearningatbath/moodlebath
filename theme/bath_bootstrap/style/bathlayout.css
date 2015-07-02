@@ -239,11 +239,16 @@ vertical-align: baseline;
 }
 /*Bath Alert Message */
 #bath-alert{
-	font-size:medium;
+	font-size:14px;
 	padding:10px;
 	text-align:center;
 	font-weight:normal;
 	border: 1px dashed;
 	background-color:#ED5656;
 	color:#FFF;
+}
+#bath-alert a{
+	color: #FFF;
+	text-decoration:underline;
+	font-weight:bold;
 }

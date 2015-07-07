@@ -1,0 +1,7 @@
+[submodule "blocks/panopto"]
+	path = blocks/panopto
+	url = https://github.bath.ac.uk/e-learning/panopto-block
+	branch = bath_review
+[submodule "local/ltiprovider"]
+	path = local/ltiprovider
+	url = https://github.com/jleyva/moodle-local_ltiprovider

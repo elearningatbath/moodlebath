@@ -949,7 +949,7 @@ sql;
             while($row = oci_fetch_object($modules_rh)){
             	GLOBAL $DB;
                 //If the course doesn't exist in Moodle, create it:
-                //Sadly, we can't guarantee idnumber is unique, therefore can't use get_record, singular
+                //Idnumber is now unique
                 $courses = $DB->get_records('course', array('idnumber' => $row->sits_code));
                 if(count($courses) > 1){
                     $this->report->log_report(1, 'Multiple Moodle courses found for module ' . $row->sits_code . ' - will sync all, though please review');

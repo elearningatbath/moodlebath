@@ -22,16 +22,16 @@ $string['editselectedusers'] = 'Edit selected user enrolments';
 $string['enrolledincourserole'] = 'Enrolled in "{$a->course}" as "{$a->role}"';
 $string['enrolusers'] = 'Enrol users';
 $string['manage_mappings'] = 'Manage Mappings';
-$string['pluginname'] = 'SITS';
-$string['pluginname_desc'] = 'The SITS enrolments plug utilises the SITS libraries in local/sits to map and enrol SITS cohorts to Moodle courses.';
+$string['pluginname'] = 'SAMIS';
+$string['pluginname_desc'] = 'The SAMIS enrolments plug utilises the SAMIS libraries in local/sits to map and enrol SAMIS cohorts to Moodle courses.';
 
-$string['sits:config'] = 'Configure SITS instances';
+$string['sits:config'] = 'Configure SAMIS instances';
 $string['sits:enrol'] = 'Enrol users';
 $string['sits:manage'] = 'Manage user enrolments';
 $string['sits:unenrol'] = 'Unenrol users from the course';
 $string['sits:unenrolself'] = 'Unenrol self from the course';
 
-$string['status'] = 'Enable SITS enrolments';
+$string['status'] = 'Enable SAMIS enrolments';
 $string['status_desc'] = 'Allow course access of internally enrolled users. This should be kept enabled in most cases.';
 $string['status_help'] = 'This setting determines whether users can be enrolled sitsly, via a link in the course administration settings, by a user with appropriate permissions such as a teacher.';
 $string['statusenabled'] = 'Enabled';
@@ -42,5 +42,5 @@ $string['unenrolselfconfirm'] = 'Do you really want to unenrol yourself from cou
 $string['unenroluser'] = 'Do you really want to unenrol "{$a->user}" from course "{$a->course}"?';
 $string['unenrolusers'] = 'Unenrol users';
 $string['wscannotenrol'] = 'Plugin instance cannot enrol a user in the course id = {$a->courseid}';
-$string['wsnoinstance'] = 'SITS enrolment plugin instance doesn\'t exist or is disabled for the course (id = {$a->courseid})';
+$string['wsnoinstance'] = 'SAMIS enrolment plugin instance doesn\'t exist or is disabled for the course (id = {$a->courseid})';
 $string['wsusercannotassign'] = 'You don\'t have the permission to assign this role ({$a->roleid}) to this user ({$a->userid}) in this course({$a->courseid}).';

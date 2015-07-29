@@ -189,8 +189,8 @@ abstract class format_section_renderer_base extends plugin_renderer_base {
             /*$o.= html_writer::link($url,
                 html_writer::empty_tag('img', array('src' => $this->output->pix_url('i/settings'),
                     'class' => 'iconsmall edit', 'alt' => get_string('edit'))),
-                array('title' => get_string('editsummary')));
-        }*/
+                array('title' => get_string('editsummary')));*/
+        }
         $o.= html_writer::end_tag('div');
 
         $o .= $this->section_availability_message($section,

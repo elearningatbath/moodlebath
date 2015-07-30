@@ -2302,8 +2302,9 @@ function get_enrolled_sql(context $context, $withcapability = '', $groupid = 0, 
         $prohibited = array(); // must not have any of these
         foreach ($access as $roleid => $perm) {
             if ($perm == CAP_PROHIBIT) {
-                unset($needed[$roleid]);
-                $prohibited[$roleid] = true;
+                //Read only fix -  commented this to display submissions (with read-only)acces
+                /*unset($needed[$roleid]);
+                $prohibited[$roleid] = true;*/
             } else if ($perm == CAP_ALLOW and empty($prohibited[$roleid])) {
                 $needed[$roleid] = true;
             }

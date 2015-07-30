@@ -709,8 +709,9 @@ class mod_assign_renderer extends plugin_renderer_base {
                 } else {
                     $o .= $this->output->box_start('generalbox submissionaction');
                     $urlparams = array('id' => $status->coursemoduleid, 'action' => 'editsubmission');
-                    $o .= $this->output->single_button(new moodle_url('/mod/assign/view.php', $urlparams),
-                                                       get_string('editsubmission', 'assign'), 'get');
+                    //Read only fix - Dont show edit submission button for RO
+                    //$o .= $this->output->single_button(new moodle_url('/mod/assign/view.php', $urlparams),
+                     //                                  get_string('editsubmission', 'assign'), 'get');
                     $o .= $this->output->box_start('boxaligncenter submithelp');
                     $o .= get_string('editsubmission_help', 'assign');
                     $o .= $this->output->box_end();

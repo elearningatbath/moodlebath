@@ -109,7 +109,7 @@ class enrol_self_plugin extends enrol_plugin {
     }
 
     public function show_enrolme_link(stdClass $instance) {
-
+        //Read only fix - Disable show enrol me link
         if (true !== $this->can_self_enrol($instance, false)) {
             return false;
         }

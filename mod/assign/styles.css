@@ -254,3 +254,7 @@ td.submissioneditable {
 #page-mod-assign-view .mod-assign-history-panel .c0 {
     width: 150px;
 }
+
+/*Readonly fix*/
+.gradingtable .generaltable td[id^=mod_assign_grading] img{
+    display: none;}

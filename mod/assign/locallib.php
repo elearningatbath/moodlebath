@@ -1240,13 +1240,14 @@ class assign {
                 $o .= '<label class="accesshide" for="quickgrade_' . $userid . '">' .
                        get_string('usergrade', 'assign') .
                        '</label>';
+                //Read only fix - Prevent users from quick grading
                 $o .= '<input type="text"
                               id="quickgrade_' . $userid . '"
                               name="quickgrade_' . $userid . '"
                               value="' .  $displaygrade . '"
                               size="6"
                               maxlength="10"
-                              class="quickgrade"/>';
+                              class="quickgrade" disabled/>';
                 $o .= '&nbsp;/&nbsp;' . format_float($this->get_instance()->grade, 2);
                 return $o;
             } else {

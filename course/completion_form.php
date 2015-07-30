@@ -54,7 +54,9 @@ class course_completion_form extends moodleform {
         if ($completion->is_course_locked()) {
             $mform->addElement('header', 'completionsettingslocked', get_string('completionsettingslocked', 'completion'));
             $mform->addElement('static', '', '', get_string('err_settingslocked', 'completion'));
-            $mform->addElement('submit', 'settingsunlock', get_string('unlockcompletiondelete', 'completion'));
+            //$mform->addElement('submit', 'settingsunlock', get_string('unlockcompletiondelete', 'completion'));
+            //Read only fix - Disabled the unlock button for course completion - Archive / Read only
+            $mform->addElement('submit', 'settingsunlock', get_string('unlockcompletiondelete', 'completion'),array('disabled'=>'disabled'));
         }
 
         // Get array of all available aggregation methods.

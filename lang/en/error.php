@@ -488,7 +488,9 @@ $string['sslonlyaccess'] = 'For security reasons only https connections are allo
 $string['statscatchupmode'] = 'Statistics is currently in catchup mode. So far {$a->daysdone} day(s) have been processed and {$a->dayspending} are pending. Check back soon!';
 $string['statsdisable'] = 'Statistics are not enabled.';
 $string['statsnodata'] = 'There is no available data for that combination of course and time period';
-$string['storedfilecannotcreatefile'] = 'Can not create local file pool file, please verify permissions in dataroot and available disk space.';
+//Read only fix - Changing the error message to something more meaningful when uploading a file to Moodle
+//$string['storedfilecannotcreatefile'] = 'Can not create local file pool file, please verify permissions in dataroot and available disk space.';
+$string['storedfilecannotcreatefile'] = 'Since you\'re using an archive version of Moodle you are prohibited from uploading any files to this server ' ;
 $string['storedfilecannotcreatefiledirs'] = 'Can not create local file pool directories, please verify permissions in dataroot.';
 $string['storedfilecannotread'] = 'Can not read file, either file does not exist or there are permission problems';
 $string['storedfilenotcreated'] = 'Can not create file "{$a->contextid}/{$a->component}/{$a->filearea}/{$a->itemid}{$a->filepath}{$a->filename}"';

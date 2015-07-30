@@ -210,7 +210,7 @@
 .path-course-view li.activity > div {position:relative;}
 /*Read-only fix Hiding completion check boxes for archive - read only*/
 .path-course-view li.activity form.togglecompletion .ajaxworking {display:none;position:absolute; right: 22px; width: 16px; height: 16px; background: url([[pix:i/ajaxloader]]) no-repeat;}
-.path-course-view li.activity form.togglecompletion div {display:inline;}
+.path-course-view li.activity form.togglecompletion div {display:none;}
 .dir-rtl.path-course-view li.activity form.togglecompletion,
 .dir-rtl.path-course-view li.activity span.autocompletion {left:1.7em;right:auto;padding:0px;}
 .dir-rtl.path-course-view .completionprogress {float: none;}

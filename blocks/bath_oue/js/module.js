@@ -126,15 +126,6 @@ M.OUE.init = function (Y,username) {
                 		//We have real data
                 		completedSurveys =  Number(surveyData.data.C);
                 		incompletedSurveys = Number(surveyData.data.S);
- 
-                    /*for (i = 0; i < surveyData.length; i++) {
-                        if (surveyData[i].OBA_STAS == 'C') {
-                            completedSurveys = Number(surveyData[i].TOTAL);
-                        }
-                        if (surveyData[i].OBA_STAS == 'S') {
-                            incompletedSurveys = Number(surveyData[i].TOTAL);
-                        }
-                    }*/
 					totalSurveys  = completedSurveys + incompletedSurveys; //Total Surveys
                     //Show the progress bar now
                     //totalSurveys = completedSurveys = 4;
@@ -160,6 +151,8 @@ M.OUE.init = function (Y,username) {
             } //End else
 			
 			 Y.one('#oue_notice').hide();
+            //Hide the complete now button
+            Y.one('#oue_link').hide();
             //Only Show this if the cookie has expired
             if (!Y.Cookie.exists(M.OUE.blockname) && blShowNotice) {
                     Y.one('#oue_notice').show();

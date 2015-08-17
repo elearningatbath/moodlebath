@@ -18,7 +18,7 @@ echo $OUTPUT->doctype(); ?>
         	         <div id="logo"></div>
             <h1 class="headermain"><?php echo $PAGE->heading ?></h1>
             <div class="headermenu"><?php
-                echo $OUTPUT->login_info();
+                echo $OUTPUT->user_menu();
                 if (!empty($PAGE->layout_options['langmenu'])) {
                     echo $OUTPUT->lang_menu();
                 }

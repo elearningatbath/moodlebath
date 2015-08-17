@@ -97,6 +97,7 @@ aside#block-region-side-post{
 #page-content #region-main-box .region-content {
     margin: 0;
     padding:0;
+    overflow:auto;
 }
 #page-content {
     font-size:larger;

@@ -37,7 +37,7 @@ echo $OUTPUT->doctype() ?>
 <div class="headermenu">
     	                
                     <?php echo $OUTPUT->page_heading_menu(); ?>
-                   <?php echo $OUTPUT->login_info() ?>
+                    <?php echo $OUTPUT->user_menu(); ?>
 
                </div>
    <header id="page-header" class="clearfix">

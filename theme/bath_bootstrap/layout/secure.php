@@ -28,7 +28,7 @@ echo $OUTPUT->doctype() ?>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 <div class="headermenu">
-<?php echo $OUTPUT->login_info() ?>
+    <?php echo $OUTPUT->user_menu(); ?>
 </div>
 <header role="banner" class="navbar navbar-fixed-top">
     <!--<nav role="navigation" class="navbar-inner">

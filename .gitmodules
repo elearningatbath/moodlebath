@@ -11,6 +11,7 @@
 [submodule "local/ltiprovider"]
 	path = local/ltiprovider
 	url = https://github.com/jleyva/moodle-local_ltiprovider
+	branch = MOODLE_27_STABLE
 [submodule "blocks/panopto"]
 	path = blocks/panopto
 	url = https://github.bath.ac.uk/e-learning/panopto-block

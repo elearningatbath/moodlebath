@@ -97,6 +97,9 @@ aside#block-region-side-post{
 #page-content #region-main-box .region-content {
     margin: 0;
     padding:0;
+}
+/*Fix grading display issues to match 2.8 themes*/
+#page-grade-report-grader-index #region-main .region-content{
     overflow:auto;
 }
 #page-content {

@@ -1928,6 +1928,7 @@ function plagiarism_get_xml($url) {
     global $CFG;
     require_once($CFG->libdir."/filelib.php");
     if (!($fp = download_file_content($url))) {
+        return true;
         print_error('fileopenerror', 'plagiarism_turnitin', '', $url);
     } else {
             //now do something with the XML file to check to see if this has worked!

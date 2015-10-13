@@ -385,7 +385,8 @@ class plagiarism_plugin_turnitin extends plagiarism_plugin {
      * @return string|void
      */
     public function update_status($course, $cm) {
-        global $DB, $USER, $OUTPUT;
+        return false;
+	global $DB, $USER, $OUTPUT;
 
         $outputhtml = '';
 

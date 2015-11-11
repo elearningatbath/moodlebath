@@ -882,6 +882,10 @@ class PHPMailer
                 } else {
                     $patternselect = 'pcre';
                 }
+                                //Bath Hack for PCRE
+                if(version_compare(PCRE_VERSION,'8.0') == 1){
+                       $patternselect = 'pcre';
+				}
             } elseif (function_exists('extension_loaded') and extension_loaded('pcre')) {
                 //Fall back to older PCRE
                 $patternselect = 'pcre';

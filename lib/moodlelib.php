@@ -4081,7 +4081,14 @@ function create_user_record($username, $password, $auth = 'manual') {
             unset($newuser->email);
         }
     }
-
+    //Bath mod - if email exists in database use blank
+    if(isset($newuser->email)) {
+    	$dupe = $DB->get_record('user',array('email'=>$newuser->email));
+    	if(is_object($dupe) && $dupe->email == $newuser->email){
+    		$newuser->email = '';
+    	}
+    }
+    //End Bath mod
     if (!isset($newuser->city)) {
         $newuser->city = '';
     }

@@ -15,3 +15,4 @@
 [submodule "blocks/panopto"]
 	path = blocks/panopto
 	url = https://github.bath.ac.uk/e-learning/panopto-block
+	branch= bath_review

@@ -1,0 +1,18 @@
+[submodule "blocks/turnitin"]
+	path = blocks/turnitin
+	url = https://github.com/jmcgettrick/moodle-block_turnitin
+[submodule "mod/turnitintooltwo"]
+	path = mod/turnitintooltwo
+	url = https://github.com/jmcgettrick/moodle-mod_turnitintooltwo
+[submodule "plagiarism/turnitin"]
+	path = plagiarism/turnitin
+	url = https://github.bath.ac.uk/e-learning/plagiarism_turnitin
+	branch = pp-turnitin-bath
+[submodule "local/ltiprovider"]
+	path = local/ltiprovider
+	url = https://github.com/jleyva/moodle-local_ltiprovider
+	branch = MOODLE_27_STABLE
+[submodule "blocks/panopto"]
+	path = blocks/panopto
+	url = https://github.bath.ac.uk/e-learning/panopto-block
+	branch= bath_review

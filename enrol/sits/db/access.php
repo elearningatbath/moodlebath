@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,16 +15,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
+ * Capabilities for sits access plugin.
  *
- * Fixes issue #65
- *
+ * @package    enrol_sits
+ * @copyright
+ * @license    University of Bath
  */
+
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-    // Marks roles that have category role assignments synchronised to course enrolments
-    // overrides below system context are ignored (for performance reasons).
-    // By default his is not allowed in new installs, admins have to explicitly allow category enrolments.
+
+//fixes issue #65
 
     'enrol/sits:config' => array(
         'captype' => 'write',

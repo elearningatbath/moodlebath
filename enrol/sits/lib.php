@@ -66,6 +66,19 @@ class enrol_sits_plugin extends enrol_plugin implements i_sits_sync
         }
     }
 
+    /**
+     * Is it possible to hide/show enrol instance via standard UI?
+     *
+     * @param stdClass $instance
+     * @return bool
+     */
+    public function can_hide_show_instance($instance) {
+        $context = context_course::instance($instance->courseid);
+        return has_capability('enrol/sits:config', $context);
+    }
+
+
+
     //Main Cron method
     public function cron() {    	
     	GLOBAL $CFG;

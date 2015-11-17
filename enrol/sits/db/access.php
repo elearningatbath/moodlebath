@@ -14,11 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Capabilities for category access plugin.
  *
- * @package    enrol_category
- * @copyright  2010 Petr Skoda {@link http://skodak.org}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Fixes issue #65
+ *
  */
 defined('MOODLE_INTERNAL') || die();
 

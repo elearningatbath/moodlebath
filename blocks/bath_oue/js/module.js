@@ -127,7 +127,6 @@ M.OUE.init = function (Y, username) {
 
             Y.one('#oue_notice').hide();
             //Hide the complete now button
-            Y.one('#oue_link').hide();
             //Only Show this if the cookie has expired
             if (!Y.Cookie.exists(M.OUE.blockname) && blShowNotice) {
                 Y.one('#oue_notice').show();

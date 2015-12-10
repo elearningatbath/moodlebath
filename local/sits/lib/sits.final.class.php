@@ -924,7 +924,7 @@ sql;
     protected function set_sql_insert_agreed_grade_smrt(){
         $this->sql_insert_agreed_grade_smrt = <<<sql
 INSERT INTO INS_SMRT (SPR_CODE, MOD_CODE, MAV_OCCUR, AYR_CODE, PSL_CODE, SMR_AGRD )
-VALUES (:spr_code , :sits_code, :mav_occur, :academic_year, :period_code, sysdate)
+VALUES (:spr_code , :sits_code, :mav_occur, :academic_year, :period_code, TO_DATE(:smr_agrd,'dd-mm-yyyy HH24:mi:ss'))
 sql;
     }
 

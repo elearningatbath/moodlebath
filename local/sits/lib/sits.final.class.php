@@ -685,6 +685,30 @@ protected function set_current_survey_stats_student(){
             return true;
         }
     }
+
+    /**
+     * Get the Module assessment details for a given unit code
+     * @return bool
+     */
+    protected function set_module_assessment_details_stm(){
+        $this->get_module_assessment_details_stm = oci_parse($this->dbh, $this->sql_get_module_assessment_details);
+        if($this->get_module_assessment_details_stm == false){
+            $this->report->log_report(2, 'set_module_assessment_details_stm() failed to parse query', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_module_assessment_details_stm,':academic_year',$this->academic_year,8,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :academic_year in set_module_assessment_details_stm()', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_module_assessment_details_stm,':sits_code',$this->sits_code,16,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :sits_code in set_module_assessment_details_stm()', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_module_assessment_details_stm,':periodslotcode',$this->period_code,16,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :period_code in set_module_assessment_details_stm()', 'mtrace');
+            return false;
+        }
+    }
     //Protected SQL setters, declared from abstract functions in sync
 
     protected function set_sql_all_programs(){
@@ -978,4 +1002,27 @@ sql;
 select bath_oue_utils.get_moodle_stats(:username) from dual
 sql;
 	}
+
+    protected function set_sql_get_period_slot_code_unit(){
+        $this->sql_get_period_slot_code_for_unit = <<<sql
+SELECT smo.PSL_CODE  FROM CAM_SMO smo
+      JOIN INS_YPS yps  ON smo.PSL_CODE = yps.yps_pslc AND
+                          smo.AYR_CODE = yps.yps_ayrc
+WHERE smo.AYR_CODE = :academic_year
+ AND smo.MOD_CODE = :sits_code
+AND  smo.SPR_CODE = :student_number
+      AND yps.yps_begd <= sysdate
+      AND yps_endd >= sysdate
+sql;
+    }
+    protected function set_sql_get_module_assessment_details(){
+        $this->sql_get_module_assessment_details = <<<sql
+    SELECT mav.MAV_OCCUR,mav.MAP_CODE,mab.MAB_SEQ FROM CAM_MAV mav
+    JOIN CAM_MAB mab
+            ON mab.MAP_CODE = mav.MAP_CODE
+    WHERE mav.MOD_CODE = :sits_code
+    AND mav.AYR_CODE = :academic_year
+    AND mav.PSL_CODE = :periodslotcode
+sql;
+    }
 }

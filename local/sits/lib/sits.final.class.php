@@ -96,6 +96,13 @@ final class sits extends sits_db {
 		//Two calls - one to prepare the function with the params and other to get the sql
 		$this->set_sql_current_survey_stats_student();
 		$this->set_current_survey_stats_student();
+
+        //Send completion data
+        $this->set_sql_get_period_slot_code_unit(); //Setting the SQL
+        $this->set_period_slot_code_unit_stm(); //Parsing the SQL
+            //Module Assessment details setters
+        $this->set_sql_get_module_assessment_details();
+        $this->set_module_assessment_details_stm();
     }
 
     function __destruct(){
@@ -421,7 +428,7 @@ sql;
         }elseif(!oci_bind_by_name($this->get_spr_from_bucs_id_stm, ':bucs_id', $this->bucs_id, 8, SQLT_CHR)){
             $this->report->log_report(2, 'Failed to bind :bucs_id in set_get_spr_from_bucs_id_stm');
             return false;
-        }elseif(!oci_bind_by_name($this->get_spr_from_bucs_id_stm, ':ac_year', $this->ac_year, 8, SQLT_CHR)){
+        }elseif(!oci_bind_by_name($this->get_spr_from_bucs_id_stm, ':ac_year', $this->academic_year, 8, SQLT_CHR)){
             $this->report->log_report(2, 'Failed to bind :ac_year in set_get_spr_from_bucs_id_stm');
             return false;
         }else{
@@ -652,6 +659,32 @@ protected function set_current_survey_stats_student(){
 	  }
 }
 
+    /**
+     * Get the period slot code for a given course and student
+     * @return bool
+     */
+    protected function set_period_slot_code_unit_stm(){
+        $this->get_current_period_slot_code_for_unit_stm = oci_parse($this->dbh, $this->sql_get_period_slot_code_for_unit);
+        if($this->get_current_period_slot_code_for_unit_stm === false){
+            $this->report->log_report(2, 'set_period_slot_code_unit() failed to parse query', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_current_period_slot_code_for_unit_stm,':academic_year',$this->academic_year,8,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :academic_year in set_period_slot_code_unit()', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_current_period_slot_code_for_unit_stm,':sits_code',$this->sits_code,16,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :sits_code in set_period_slot_code_unit()', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_current_period_slot_code_for_unit_stm,':student_number',$this->student_number,11,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :student_number in set_period_slot_code_unit()', 'mtrace');
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     //Protected SQL setters, declared from abstract functions in sync
 
     protected function set_sql_all_programs(){
@@ -679,7 +712,7 @@ AND dpt.dpt_code = crs.crs_dptc
 AND stu.stu_udf1 IS NOT NULL 
 AND sce.sce_stac NOT IN ('G', 'DE', 'L', 'NS', 'T')
 sql;
-        //this to give a vconditions placeholder; because EOT parses $variables, so you can't stick it straight in
+        //this to give a conditions placeholder; because EOT parses $variables, so you can't stick it straight in
         $this->sql_prog_students .= ' %1$s';
     }
 

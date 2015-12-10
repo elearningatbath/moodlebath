@@ -951,7 +951,7 @@ sql;
     protected function set_sql_update_agreed_grade_smrt(){
 
         $this->sql_update_agreed_grade_smrt = <<<sql
-UPDATE INS_SMRT SET SMR_AGRD = sysdate
+UPDATE INS_SMRT SET SMR_AGRD = :smr_agrd
 WHERE SPR_CODE  = :spr_code
 AND MOD_CODE = :sits_code
 AND AYR_CODE = :academic_year

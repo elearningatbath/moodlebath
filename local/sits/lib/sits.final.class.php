@@ -541,7 +541,8 @@ sql;
         }elseif(!oci_bind_by_name($this->insert_agreed_grade_smrt_stm, ':mav_occur', $this->mav_occur, 8, SQLT_CHR)){
             $this->report->log_report(2, 'Failed to bind :mav_occur in set_insert_agreed_grade_smrt_stm()', 'mtrace');
             return false;
-
+        }elseif(!oci_bind_by_name($this->insert_agreed_grade_smrt_stm, ':smr_agrd', $this->smr_agrd, 25, SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :smr_agrd in set_insert_agreed_grade_smrt_stm()', 'mtrace');
         }else{
             return true;
         }
@@ -633,7 +634,9 @@ sql;
         }elseif(!oci_bind_by_name($this->update_agreed_grade_smrt_stm, ':period_code', $this->period_code, 8, SQLT_CHR)){
             $this->report->log_report(2, 'Failed to bind :period_code in set_update_agreed_grade_smrt_stm()', 'mtrace');
             return false;
-
+        }elseif(!oci_bind_by_name($this->update_agreed_grade_smrt_stm, ':smr_agrd', $this->smr_agrd, 11, SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :smr_agrd in set_update_agreed_grade_smrt_stm()', 'mtrace');
+            return false;
         }else{
             return true;
         }

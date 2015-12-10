@@ -438,7 +438,7 @@ abstract class sits_db implements i_sits_db {
      */
     public function get_spr_from_bucs_id($bucs_id,$cohort){
         $this->bucs_id = $bucs_id;
-        $this->ac_year = $cohort->academic_year;
+        $this->academic_year = $cohort->academic_year;
         if(!oci_execute($this->get_spr_from_bucs_id_stm)){
             return false;
         }

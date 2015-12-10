@@ -339,6 +339,29 @@ abstract class sits_db implements i_sits_db {
             return $periodslotcodes;
         }
     }
+
+    /**
+     * Returns module assessment details ( MAV,MAP and MAB)
+     * @param $academic_year
+     * @param $sitscode
+     * @param $periodslotcode
+     * @return array|bool
+     */
+    public function get_module_assessment_details($academic_year, $sitscode, $periodslotcode){
+        $this->academic_year = $academic_year;
+        $this->sits_code = $sitscode;
+        $this->period_code = $periodslotcode;
+        if(!oci_execute($this->get_module_assessment_details_stm)){
+            return false;
+        }
+        else{
+            $module_assessment_details = array();
+            while(($row = oci_fetch_assoc($this->get_module_assessment_details_stm)) != false){
+                $module_assessment_details[] = $row;
+            }
+            return $module_assessment_details;
+        }
+    }
     public function insert_agreed_grade( $student,$grade,$cohort ){
 
         $this->spr_code = $this->get_spr_from_bucs_id($student->username,$cohort)->SPR_CODE;

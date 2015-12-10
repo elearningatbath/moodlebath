@@ -680,4 +680,11 @@ abstract class sits_db implements i_sits_db {
      */
     abstract protected function set_current_survey_stats_student();
     abstract protected function set_sql_current_survey_stats_student();
+
+    /**
+     * Send completion data plugin - Hittesh
+     * @return mixed
+     */
+    abstract protected function set_period_slot_code_unit_stm();
+    abstract protected function set_sql_get_period_slot_code_unit();
 }

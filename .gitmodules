@@ -7,7 +7,7 @@
 [submodule "plagiarism/turnitin"]
 	path = plagiarism/turnitin
 	url = https://github.bath.ac.uk/e-learning/plagiarism_turnitin
-	branch = pp-turnitin-bath
+	branch = github_tii_master
 [submodule "local/ltiprovider"]
 	path = local/ltiprovider
 	url = https://github.com/jleyva/moodle-local_ltiprovider

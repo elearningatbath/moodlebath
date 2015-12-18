@@ -2589,6 +2589,8 @@ class assign {
 
         // More efficient to load this here.
         require_once($CFG->libdir.'/filelib.php');
+        core_php_time_limit::raise();
+        // Increase the server timeout to handle the creation and sending of large zip files.
 
         $this->require_view_grades();
 

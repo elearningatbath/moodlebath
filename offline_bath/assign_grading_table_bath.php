@@ -78,6 +78,7 @@ class assign_grading_table_bath extends table_sql implements renderable {
      * @param int $rowoffset For showing a subsequent page of results
      * @param bool $quickgrading Is this table wrapped in a quickgrading form?
      * @param string $downloadfilename
+     * SOT The downloaded file and its fields is build in the constructor below
      */
     public function __construct(assign $assignment,
                                 $perpage,
@@ -135,11 +136,13 @@ class assign_grading_table_bath extends table_sql implements renderable {
         $params['assignmentid3'] = (int)$this->assignment->get_instance()->id;
 
         $extrauserfields = get_extra_user_fields($this->assignment->get_context());
-        //SOT
+        /* SOT first the below SQL query is run in order to bring all the necessary data from the database to fill the
+        various fields of the downloaded CSV file. The SQL query is build below */
+
         $fields = user_picture::fields('u', $extrauserfields) . ', ';
         $fields .= 'u.id as userid, ';
         //SOT
-        $fields .= "uid.data AS sprcode, ";
+        $fields .= "uid.data AS studentid, ";
         $fields .= 's.status as status, ';
         $fields .= 's.id as submissionid, ';
         $fields .= 's.timecreated as firstsubmission, ';
@@ -182,8 +185,8 @@ class assign_grading_table_bath extends table_sql implements renderable {
         $from .= 'LEFT JOIN {assign_user_flags} uf
                          ON u.id = uf.userid
                         AND uf.assignment = :assignmentid3';
-        //SOT
-        $from .= "LEFT JOIN {user_info_data} uid ON uid.userid = u.id LEFT JOIN {user_info_field} uif ON uif.id = uid.fieldid AND uif.name ='sprcode' ";
+        //SOT SQL changed to bring in the StudentID field data in user_info_field / user_info_data.data
+        $from .= "LEFT JOIN {user_info_data} uid ON uid.userid = u.id LEFT JOIN {user_info_field} uif ON uif.id = uid.fieldid AND uif.shortname ='studentid' ";
         $userparams = array();
         $userindex = 0;
 
@@ -256,7 +259,7 @@ class assign_grading_table_bath extends table_sql implements renderable {
         $columns = array();
         $headers = array();
 
-        // Select.
+        // Select. creates the checkbox that it appears first on the Moodle form
         if (!$this->is_downloading() && $this->hasgrade) {
             $columns[] = 'select';
             $headers[] = get_string('select') .
@@ -274,11 +277,14 @@ class assign_grading_table_bath extends table_sql implements renderable {
                 $headers[] = get_string('recordid', 'assign');
             }
 
-            //SOT adds additional SPR code (student number, student ID) field
+            /* SOT
+            If the form is to be downloaded as a CSV file and the names of the students are already revealed
+            it adds an additional student ID field
+            */
 
             if ($this->is_downloading() && !$assignment->is_blind_marking()) {
                 //SOT I should add an extra field here
-                $columns[] = 'sprcode';
+                $columns[] = 'studentid';
                 $headers[] = 'Student ID';
             }
 

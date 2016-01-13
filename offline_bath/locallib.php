@@ -309,7 +309,7 @@ class assign_feedback_offline_bath extends assign_feedback_plugin {
      *
      * @return string The response html
      */
-    //SOT 2
+    //SOT 2 (Step 2)
     public function download_grades() {
         global $CFG;
 
@@ -331,7 +331,7 @@ class assign_feedback_offline_bath extends assign_feedback_plugin {
                                    $this->assignment->get_instance()->name . '-' .
                                    $groupname .
                                    $this->assignment->get_course_module()->id);
-        //SOT this is what creates the CSV file (I believe)
+        //SOT this is what creates the CSV file
         $table = new assign_grading_table_bath($this->assignment, 0, '', 0, false, $filename);
 
         $table->out(0, false);
@@ -344,7 +344,7 @@ class assign_feedback_offline_bath extends assign_feedback_plugin {
      * @param string $action - The plugin action
      * @return string The response html
      */
-    //SOT 1
+    //SOT 1 This is the function that is executed when the user chooses Grading Action=> Download grading worksheet Bath
     public function view_page($action) {
         if ($action == 'downloadgrades') {
             return $this->download_grades();

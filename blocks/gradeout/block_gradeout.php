@@ -46,7 +46,7 @@ class block_gradeout extends block_base {
 		if($thisblock->cron != $CFG->block_gradeout_cron){
 			if ($CFG->block_gradeout_cron == 0){
 				mtrace('disabled. set cron > 0');
-				return true;
+				return false;
 			}
 			$thisblock->cron = $CFG->block_gradeout_cron;
 			$DB->update_record('block',$thisblock);

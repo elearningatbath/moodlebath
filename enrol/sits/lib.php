@@ -1286,7 +1286,8 @@ private function create_course_for_cohort($cohort_data){
                 }
             }
             catch(\Exception $e){
-                $this->report->log_report();
+                $this->report->log_report(1,'Could not insert STU field for username {$user->username}');
+                return false;
             }
         }
     }

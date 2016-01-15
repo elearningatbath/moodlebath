@@ -92,6 +92,11 @@ abstract class sits_db implements i_sits_db {
     protected $get_module_assessment_details_stm;
     protected $sql_get_module_assessment_details;
 
+    //Offline grading worksheet
+    protected $get_stu_code_stm;
+    protected $sql_get_stu_code;
+
+
     //Implementation of i_sits_db
 
     public function mod_student_members_rh($module_cohort){
@@ -200,7 +205,17 @@ abstract class sits_db implements i_sits_db {
         }
         return $this->current_period_codes_stm;
     }
+    public function get_stu_code($username){
+        $this->bucs_id = $username;
+        if(!oci_execute($this->get_stu_code_stm)){
+            return false;
+        }
+        else{
+            $objStuCode = oci_fetch_object($this->get_stu_code_stm);
+            return $objStuCode;
+        }
 
+    }
     //End on implementation of i_sits_sync
     //Other services
 
@@ -687,4 +702,10 @@ abstract class sits_db implements i_sits_db {
      */
     abstract protected function set_period_slot_code_unit_stm();
     abstract protected function set_sql_get_period_slot_code_unit();
+
+    /**
+     * Getting STU Code for Offline Grading Worksheet
+     */
+    abstract protected function set_sql_get_stu_code();
+    abstract protected function set_get_stu_code_stm();
 }

@@ -1191,7 +1191,7 @@ private function create_course_for_cohort($cohort_data){
         	return false;
         }
         //Get fieldid for `stucode`
-        $fieldid = $DB->get_field('user_info_field',array('shortname' => 'stucode'),'MUST_EXIST');
+        $fieldid = $DB->get_field('user_info_field','id',array('shortname' => 'stucode'),MUST_EXIST);
         foreach($sits_cohort_members as $row){
             if($row->username != ''){
                 $user = $this->user_by_username($row->username);

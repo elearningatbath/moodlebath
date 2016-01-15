@@ -1028,4 +1028,10 @@ sql;
     AND mav.PSL_CODE = :periodslotcode
 sql;
     }
+    protected function set_sql_get_stu_code(){
+        $this->sql_get_stu_code = <<<sql
+SELECT stu.STU_CODE FROM INS_STU stu
+ WHERE stu.STU_UDF1 = :username
+sql;
+    }
 }

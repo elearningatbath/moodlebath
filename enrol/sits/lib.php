@@ -1190,7 +1190,8 @@ private function create_course_for_cohort($cohort_data){
         	$this->report->log_report(1, 'Failed to sync '  . $mapping->id . '; could not get SITS enrol instance');
         	return false;
         }
-        
+        //Get fieldid for `stucode`
+        $fieldid = $DB->get_field('user_info_field',array('shortname' => 'stucode'),'MUST_EXIST');
         foreach($sits_cohort_members as $row){
             if($row->username != ''){
                 $user = $this->user_by_username($row->username);
@@ -1230,9 +1231,12 @@ private function create_course_for_cohort($cohort_data){
 				}
 			}
 		}
+                //Add STU Code ,if not added already
+                if(!$this->add_stu_code($user,$fieldid)){
+                    $this->report->log_report(1,'Failed to add STU code for student profile field');
+                }
             }
-        }        
-        
+        }
         return true;
     }
 /**
@@ -1265,6 +1269,28 @@ private function create_course_for_cohort($cohort_data){
 		}
 		return $added;
 	}
+    private function add_stu_code($user,$fieldid){
+        global $DB;
+        $stu_sql = "SELECT uid.`id` FROM {user_info_data} uid JOIN {user_info_field} uif ON uid.`fieldid` = uof.`id` AND uif.id = ? WHERE uid.`userid` = ?";
+        if(!$DB->record_exists_sql($stu_sql,array($fieldid,$user->id))){
+            //Fetch the STU CODE from SAMIS
+            try{
+                $stu_code = $this->sits->get_stu_code($user->username);
+                if(is_object($stu_code)){
+                    $record = new stdClass();
+                    $record->data = $stu_code;
+                    $record->userid = $user->id;
+                    $record->fieldid = $fieldid;
+                    //Insert the STU CODE in Moodle profile field (used mainly for Offline Grading Worksheet)
+                    return $DB->insert_record('user_info_data',$record);
+                }
+            }
+            catch(\Exception $e){
+                $this->report->log_report(1,'Could not insert STU field for username {$user->username}');
+                return false;
+            }
+        }
+    }
     /**
      * Enrols a user on a course with a role
      * @return bool true on adding the user to the course, false if not

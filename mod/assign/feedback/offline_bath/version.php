@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016011300;
+$plugin->version   = 2016011500;
 $plugin->requires  = 2014110400;
 $plugin->component = 'assignfeedback_offline_bath';
 

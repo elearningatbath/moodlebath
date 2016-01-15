@@ -1278,7 +1278,7 @@ private function create_course_for_cohort($cohort_data){
                 $stu_code = $this->sits->get_stu_code($user->username);
                 if(is_object($stu_code)){
                     $record = new stdClass();
-                    $record->data = $stu_code;
+                    $record->data = $stu_code->STU_CODE;
                     $record->userid = $user->id;
                     $record->fieldid = $fieldid;
                     //Insert the STU CODE in Moodle profile field (used mainly for Offline Grading Worksheet)

@@ -1373,6 +1373,7 @@ sql;
     			return false;
     		}
             else{
+                $ue->lastenrol = true; // means user not enrolled any more
                 //Trigger the event once a user is unenrolled from the course
                  $event = core\event\user_enrolment_deleted::create(
                      array(

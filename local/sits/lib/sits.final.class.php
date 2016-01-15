@@ -100,9 +100,12 @@ final class sits extends sits_db {
         //Send completion data
         $this->set_sql_get_period_slot_code_unit(); //Setting the SQL
         $this->set_period_slot_code_unit_stm(); //Parsing the SQL
-            //Module Assessment details setters
+        //Module Assessment details setters
         $this->set_sql_get_module_assessment_details();
         $this->set_module_assessment_details_stm();
+        //Offline Grading Worksheet - STU Code setters
+        $this->set_sql_get_stu_code();
+        $this->set_get_stu_code_stm();
     }
 
     function __destruct(){
@@ -712,6 +715,22 @@ protected function set_current_survey_stats_student(){
             return false;
         }
     }
+    /**
+     *
+     */
+    protected function set_get_stu_code_stm()
+    {
+        $this->get_stu_code_stm = oci_parse($this->dbh,$this->sql_get_stu_code);
+        if($this->get_stu_code_stm == false){
+            $this->report->log_report(2, 'set_get_stu_code_stm() failed to parse query', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_stu_code_stm, ':username', $this->bucs_id, 8, SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :username in set_get_stu_code_stm()', 'mtrace');
+            return false;
+        }
+    }
+
     //Protected SQL setters, declared from abstract functions in sync
 
     protected function set_sql_all_programs(){

@@ -142,7 +142,7 @@ class assign_grading_table_bath extends table_sql implements renderable {
         $fields = user_picture::fields('u', $extrauserfields) . ', ';
         $fields .= 'u.id as userid, ';
         //SOT
-        $fields .= "uid.data AS studentid, ";
+        $fields .= "uid.data AS stucode, ";
         $fields .= 's.status as status, ';
         $fields .= 's.id as submissionid, ';
         $fields .= 's.timecreated as firstsubmission, ';
@@ -186,7 +186,7 @@ class assign_grading_table_bath extends table_sql implements renderable {
                          ON u.id = uf.userid
                         AND uf.assignment = :assignmentid3';
         //SOT SQL changed to bring in the StudentID field data in user_info_field / user_info_data.data
-        $from .= "LEFT JOIN {user_info_data} uid ON uid.userid = u.id LEFT JOIN {user_info_field} uif ON uif.id = uid.fieldid AND uif.shortname ='studentid' ";
+        $from .= "LEFT JOIN {user_info_data} uid ON uid.userid = u.id LEFT JOIN {user_info_field} uif ON uif.id = uid.fieldid AND uif.shortname ='stucode' ";
         $userparams = array();
         $userindex = 0;
 
@@ -284,8 +284,8 @@ class assign_grading_table_bath extends table_sql implements renderable {
 
             if ($this->is_downloading() && !$assignment->is_blind_marking()) {
                 //SOT I should add an extra field here
-                $columns[] = 'studentid';
-                $headers[] = 'Student ID';
+                $columns[] = 'stucode';
+                $headers[] = 'STU Code';
             }
 
             // Fullname.

@@ -44,5 +44,5 @@ $string['pluginname'] = 'Offline grading worksheet (Bath version)';
 $string['processgrades'] = 'Import grades';
 $string['skiprecord'] = 'Skip record';
 $string['updaterecord'] = 'Update record';
-$string['uploadgrades'] = 'Upload grading worksheet';
+$string['uploadgrades'] = 'Upload grading worksheet (Bath version)';
 $string['updatedgrades'] = 'Updated {$a} grades and feedback';

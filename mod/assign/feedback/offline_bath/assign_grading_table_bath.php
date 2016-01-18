@@ -186,7 +186,7 @@ class assign_grading_table_bath extends table_sql implements renderable {
                          ON u.id = uf.userid
                         AND uf.assignment = :assignmentid3';
         //SOT SQL changed to bring in the StudentID field data in user_info_field / user_info_data.data
-        $from .= "LEFT JOIN {user_info_data} uid ON uid.userid = u.id LEFT JOIN {user_info_field} uif ON uif.id = uid.fieldid AND uif.shortname ='stucode' ";
+        $from .= " LEFT JOIN {user_info_data} uid ON uid.userid = u.id AND uid.fieldid IN (SELECT uif.id FROM {user_info_field} uif WHERE uif.shortname ='stucode')";
         $userparams = array();
         $userindex = 0;
 

@@ -1191,7 +1191,7 @@ private function create_course_for_cohort($cohort_data){
         	return false;
         }
         //Get fieldid for `stucode`
-        $fieldid = $DB->get_field('user_info_field',array('shortname' => 'stucode'),'MUST_EXIST');
+        $fieldid = $DB->get_field('user_info_field','id',array('shortname' => 'stucode'),MUST_EXIST);
         foreach($sits_cohort_members as $row){
             if($row->username != ''){
                 $user = $this->user_by_username($row->username);
@@ -1278,7 +1278,7 @@ private function create_course_for_cohort($cohort_data){
                 $stu_code = $this->sits->get_stu_code($user->username);
                 if(is_object($stu_code)){
                     $record = new stdClass();
-                    $record->data = $stu_code;
+                    $record->data = $stu_code->STU_CODE;
                     $record->userid = $user->id;
                     $record->fieldid = $fieldid;
                     //Insert the STU CODE in Moodle profile field (used mainly for Offline Grading Worksheet)
@@ -1373,6 +1373,7 @@ sql;
     			return false;
     		}
             else{
+                $ue->lastenrol = true; // means user not enrolled any more
                 //Trigger the event once a user is unenrolled from the course
                  $event = core\event\user_enrolment_deleted::create(
                      array(

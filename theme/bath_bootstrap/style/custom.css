@@ -17,6 +17,11 @@ a.logo {
     float: right;
 }
 
+
+#page-mod-glossary-showentry table.glossarypopup {
+    font-size: 100%;
+}
+
 /* Custom CSS Settings
 -------------------------*/
 [[setting:customcss]]

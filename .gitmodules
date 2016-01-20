@@ -16,3 +16,6 @@
 	path = blocks/panopto
 	url = https://github.bath.ac.uk/e-learning/panopto-block
 	branch= bath_review
+[submodule "local/bath_send_completion_data"]
+	path = local/bath_send_completion_data
+	url = https://github.bath.ac.uk/e-learning/local_bath_send_completion_data.git

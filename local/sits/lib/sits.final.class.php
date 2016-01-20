@@ -96,6 +96,13 @@ final class sits extends sits_db {
 		//Two calls - one to prepare the function with the params and other to get the sql
 		$this->set_sql_current_survey_stats_student();
 		$this->set_current_survey_stats_student();
+
+        //Send completion data
+        $this->set_sql_get_period_slot_code_unit(); //Setting the SQL
+        $this->set_period_slot_code_unit_stm(); //Parsing the SQL
+            //Module Assessment details setters
+        $this->set_sql_get_module_assessment_details();
+        $this->set_module_assessment_details_stm();
     }
 
     function __destruct(){
@@ -421,7 +428,7 @@ sql;
         }elseif(!oci_bind_by_name($this->get_spr_from_bucs_id_stm, ':bucs_id', $this->bucs_id, 8, SQLT_CHR)){
             $this->report->log_report(2, 'Failed to bind :bucs_id in set_get_spr_from_bucs_id_stm');
             return false;
-        }elseif(!oci_bind_by_name($this->get_spr_from_bucs_id_stm, ':ac_year', $this->ac_year, 8, SQLT_CHR)){
+        }elseif(!oci_bind_by_name($this->get_spr_from_bucs_id_stm, ':ac_year', $this->academic_year, 8, SQLT_CHR)){
             $this->report->log_report(2, 'Failed to bind :ac_year in set_get_spr_from_bucs_id_stm');
             return false;
         }else{
@@ -534,7 +541,8 @@ sql;
         }elseif(!oci_bind_by_name($this->insert_agreed_grade_smrt_stm, ':mav_occur', $this->mav_occur, 8, SQLT_CHR)){
             $this->report->log_report(2, 'Failed to bind :mav_occur in set_insert_agreed_grade_smrt_stm()', 'mtrace');
             return false;
-
+        }elseif(!oci_bind_by_name($this->insert_agreed_grade_smrt_stm, ':smr_agrd', $this->smr_agrd, 25, SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :smr_agrd in set_insert_agreed_grade_smrt_stm()', 'mtrace');
         }else{
             return true;
         }
@@ -626,7 +634,9 @@ sql;
         }elseif(!oci_bind_by_name($this->update_agreed_grade_smrt_stm, ':period_code', $this->period_code, 8, SQLT_CHR)){
             $this->report->log_report(2, 'Failed to bind :period_code in set_update_agreed_grade_smrt_stm()', 'mtrace');
             return false;
-
+        }elseif(!oci_bind_by_name($this->update_agreed_grade_smrt_stm, ':smr_agrd', $this->smr_agrd, 11, SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :smr_agrd in set_update_agreed_grade_smrt_stm()', 'mtrace');
+            return false;
         }else{
             return true;
         }
@@ -652,6 +662,56 @@ protected function set_current_survey_stats_student(){
 	  }
 }
 
+    /**
+     * Get the period slot code for a given course and student
+     * @return bool
+     */
+    protected function set_period_slot_code_unit_stm(){
+        $this->get_current_period_slot_code_for_unit_stm = oci_parse($this->dbh, $this->sql_get_period_slot_code_for_unit);
+        if($this->get_current_period_slot_code_for_unit_stm === false){
+            $this->report->log_report(2, 'set_period_slot_code_unit() failed to parse query', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_current_period_slot_code_for_unit_stm,':academic_year',$this->academic_year,8,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :academic_year in set_period_slot_code_unit()', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_current_period_slot_code_for_unit_stm,':sits_code',$this->sits_code,16,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :sits_code in set_period_slot_code_unit()', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_current_period_slot_code_for_unit_stm,':student_number',$this->student_number,11,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :student_number in set_period_slot_code_unit()', 'mtrace');
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    /**
+     * Get the Module assessment details for a given unit code
+     * @return bool
+     */
+    protected function set_module_assessment_details_stm(){
+        $this->get_module_assessment_details_stm = oci_parse($this->dbh, $this->sql_get_module_assessment_details);
+        if($this->get_module_assessment_details_stm == false){
+            $this->report->log_report(2, 'set_module_assessment_details_stm() failed to parse query', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_module_assessment_details_stm,':academic_year',$this->academic_year,8,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :academic_year in set_module_assessment_details_stm()', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_module_assessment_details_stm,':sits_code',$this->sits_code,16,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :sits_code in set_module_assessment_details_stm()', 'mtrace');
+            return false;
+        }
+        elseif(!oci_bind_by_name($this->get_module_assessment_details_stm,':periodslotcode',$this->period_code,16,SQLT_CHR)){
+            $this->report->log_report(2, 'Failed to bind :period_code in set_module_assessment_details_stm()', 'mtrace');
+            return false;
+        }
+    }
     //Protected SQL setters, declared from abstract functions in sync
 
     protected function set_sql_all_programs(){
@@ -679,7 +739,7 @@ AND dpt.dpt_code = crs.crs_dptc
 AND stu.stu_udf1 IS NOT NULL 
 AND sce.sce_stac NOT IN ('G', 'DE', 'L', 'NS', 'T')
 sql;
-        //this to give a vconditions placeholder; because EOT parses $variables, so you can't stick it straight in
+        //this to give a conditions placeholder; because EOT parses $variables, so you can't stick it straight in
         $this->sql_prog_students .= ' %1$s';
     }
 
@@ -867,7 +927,7 @@ sql;
     protected function set_sql_insert_agreed_grade_smrt(){
         $this->sql_insert_agreed_grade_smrt = <<<sql
 INSERT INTO INS_SMRT (SPR_CODE, MOD_CODE, MAV_OCCUR, AYR_CODE, PSL_CODE, SMR_AGRD )
-VALUES (:spr_code , :sits_code, :mav_occur, :academic_year, :period_code, sysdate)
+VALUES (:spr_code , :sits_code, :mav_occur, :academic_year, :period_code, TO_DATE(:smr_agrd,'dd-mm-yyyy HH24:mi:ss'))
 sql;
     }
 
@@ -894,7 +954,7 @@ sql;
     protected function set_sql_update_agreed_grade_smrt(){
 
         $this->sql_update_agreed_grade_smrt = <<<sql
-UPDATE INS_SMRT SET SMR_AGRD = sysdate
+UPDATE INS_SMRT SET SMR_AGRD = :smr_agrd
 WHERE SPR_CODE  = :spr_code
 AND MOD_CODE = :sits_code
 AND AYR_CODE = :academic_year
@@ -945,4 +1005,27 @@ sql;
 select bath_oue_utils.get_moodle_stats(:username) from dual
 sql;
 	}
+
+    protected function set_sql_get_period_slot_code_unit(){
+        $this->sql_get_period_slot_code_for_unit = <<<sql
+SELECT smo.PSL_CODE  FROM CAM_SMO smo
+      JOIN INS_YPS yps  ON smo.PSL_CODE = yps.yps_pslc AND
+                          smo.AYR_CODE = yps.yps_ayrc
+WHERE smo.AYR_CODE = :academic_year
+ AND smo.MOD_CODE = :sits_code
+AND  smo.SPR_CODE = :student_number
+      AND yps.yps_begd <= sysdate
+      AND yps_endd >= sysdate
+sql;
+    }
+    protected function set_sql_get_module_assessment_details(){
+        $this->sql_get_module_assessment_details = <<<sql
+    SELECT mav.MAV_OCCUR,mav.MAP_CODE,mab.MAB_SEQ FROM CAM_MAV mav
+    JOIN CAM_MAB mab
+            ON mab.MAP_CODE = mav.MAP_CODE
+    WHERE mav.MOD_CODE = :sits_code
+    AND mav.AYR_CODE = :academic_year
+    AND mav.PSL_CODE = :periodslotcode
+sql;
+    }
 }

@@ -86,6 +86,12 @@ abstract class sits_db implements i_sits_db {
     protected $sql_get_current_survey_stats_student;
     protected $get_current_survey_stats_student_stm;
 
+    //Send Completion Data plugin properties - Hittesh
+    protected $get_current_period_slot_code_for_unit_stm;
+    protected $sql_get_period_slot_code_for_unit;
+    protected $get_module_assessment_details_stm;
+    protected $sql_get_module_assessment_details;
+
     //Implementation of i_sits_db
 
     public function mod_student_members_rh($module_cohort){
@@ -311,6 +317,51 @@ abstract class sits_db implements i_sits_db {
         }
     }
 
+    /**
+     * Returns period slot code(s) for a given student on a sits code
+     * @param $academic_year
+     * @param $sitscode
+     * @param $studentnumber
+     * @return array|bool
+     */
+    public function get_period_slot_code_for_unit($academic_year, $sitscode, $studentnumber){
+        $this->academic_year = $academic_year;
+        $this->sits_code = $sitscode;
+        $this->student_number = $studentnumber;
+        if(!oci_execute($this->get_current_period_slot_code_for_unit_stm)){
+            return false;
+        }
+        else{
+            $periodslotcodes = array();
+            while ($row = oci_fetch_row($this->get_current_period_slot_code_for_unit_stm) ){
+                $periodslotcodes[] = $row[0];
+            }
+            return $periodslotcodes;
+        }
+    }
+
+    /**
+     * Returns module assessment details ( MAV,MAP and MAB)
+     * @param $academic_year
+     * @param $sitscode
+     * @param $periodslotcode
+     * @return array|bool
+     */
+    public function get_module_assessment_details($academic_year, $sitscode, $periodslotcode){
+        $this->academic_year = $academic_year;
+        $this->sits_code = $sitscode;
+        $this->period_code = $periodslotcode;
+        if(!oci_execute($this->get_module_assessment_details_stm)){
+            return false;
+        }
+        else{
+            $module_assessment_details = array();
+            while(($row = oci_fetch_assoc($this->get_module_assessment_details_stm)) != false){
+                $module_assessment_details[] = $row;
+            }
+            return $module_assessment_details;
+        }
+    }
     public function insert_agreed_grade( $student,$grade,$cohort ){
 
         $this->spr_code = $this->get_spr_from_bucs_id($student->username,$cohort)->SPR_CODE;
@@ -387,7 +438,7 @@ abstract class sits_db implements i_sits_db {
      */
     public function get_spr_from_bucs_id($bucs_id,$cohort){
         $this->bucs_id = $bucs_id;
-        $this->ac_year = $cohort->academic_year;
+        $this->academic_year = $cohort->academic_year;
         if(!oci_execute($this->get_spr_from_bucs_id_stm)){
             return false;
         }
@@ -629,4 +680,11 @@ abstract class sits_db implements i_sits_db {
      */
     abstract protected function set_current_survey_stats_student();
     abstract protected function set_sql_current_survey_stats_student();
+
+    /**
+     * Send completion data plugin - Hittesh
+     * @return mixed
+     */
+    abstract protected function set_period_slot_code_unit_stm();
+    abstract protected function set_sql_get_period_slot_code_unit();
 }

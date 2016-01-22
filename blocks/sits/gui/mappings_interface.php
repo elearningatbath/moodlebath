@@ -45,14 +45,13 @@ echo $OUTPUT->header();?>
 	<div id="header" class=" clearfix">
 	<h1><?php print get_string('link_cohorts', 'block_sits')?></h1>
 	</div>
-	
-	<div> 
-			<div id="course_filter" class="filter">
+		<!-- SOT I removed style="float: right; FROM last button/input type below to make the Manage Mappings button display properly -->
+		<div id="course_filter" class="filter">
 				<input id="course_search_input" type="text" onkeyup="sits_block.filterCourses(this.value)"></input>
 				<span id = "filter_message">Filter by course name or idnumber</span>
-				<input type="submit" style="float: right;" value="Close Manage Mappings Interface" onclick="sits_block.exit();" />
-			</div>
-	</div>
+				<input type="submit" value="Close Manage Mappings Interface" onclick="sits_block.exit();" />
+		</div>
+
 	<div id="cohorts">
 		<br/>
 		<div id="course_search"></div>

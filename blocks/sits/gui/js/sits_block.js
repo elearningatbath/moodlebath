@@ -20,6 +20,7 @@ sits_block.newPeriodCount = 0;
 sits_block.periodValueHasChanged = [];
 sits_block.incompleteForm = [];
 sits_block.cidForLastOperation;
+//SOT in order for the plugin to work on my local machine I must add /moodle at beginning of path
 sits_block.sUrl = location.protocol + '//' + location.hostname + '/blocks/sits/gui/client_async_request.php';
 
 sits_block.isEven = function (int) {
@@ -1851,7 +1852,7 @@ sits_block.appendNewMappingFormToPage = function (courseid) {
 	
 	html += '<br/>';
 	html += '<div class="new_map_form_element">';
-		html += '<div class="new_map_form_label">&nbsp</div>';
+		// SOT commented to make Manage Mappings buttons work html += '<div class="new_map_form_label">&nbsp</div>';
 		html += '<div class="new_map_form_input" style="margin-right: 5px;">';
 		html += '<input type="submit" class="map_submit" id="id_' + mapFormDiv.id + '_map_save"  value ="Create Mapping" onclick="sits_block.add_module_to_mappings(' + courseid + ",'" + mapFormDiv.id + "'" + ')"/>';
 	html += '</div>';

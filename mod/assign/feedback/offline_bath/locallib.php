@@ -361,9 +361,10 @@ class assign_feedback_offline_bath extends assign_feedback_plugin {
      *
      * @return array The list of grading actions
      */
+    /* SOT function below changed to remove the 'upload grading worksheet (Bath version)' menu command
+    The following code WAS REMOVED: return array('uploadgrades'=>get_string('uploadgrades', 'assignfeedback_offline_bath'), */
     public function get_grading_actions() {
-        return array('uploadgrades'=>get_string('uploadgrades', 'assignfeedback_offline_bath'),
-                    'downloadgrades'=>get_string('downloadgrades', 'assignfeedback_offline_bath'));
+        return array('downloadgrades'=>get_string('downloadgrades', 'assignfeedback_offline_bath'));
     }
 
     /**

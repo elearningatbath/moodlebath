@@ -86,6 +86,12 @@ abstract class sits_db implements i_sits_db {
     protected $sql_get_current_survey_stats_student;
     protected $get_current_survey_stats_student_stm;
 
+    //Send Completion Data plugin properties - Hittesh Ahuja
+    protected $get_current_period_slot_code_for_unit_stm;
+    protected $sql_get_period_slot_code_for_unit;
+    protected $get_module_assessment_details_stm;
+    protected $sql_get_module_assessment_details;
+
     //Implementation of i_sits_db
 
     public function mod_student_members_rh($module_cohort){

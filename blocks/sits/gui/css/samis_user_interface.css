@@ -275,4 +275,7 @@ groups_load_message {
 #sits_filterform #fitem_id_role,
 #sits_filterform #fitem_id_ifilter,
 #sits_filterform #fgroup_id_buttons {margin-left:0.5em;}
-
+/* SOT: Added the CSS classes below to fix the displaying of a table in the Sits/Manage Mappings/ Enrolled users filtering
+It did not work in Firefox version 38 only*/
+.fftable {float: left;}
+.sitsbulkuserop {float: left;}

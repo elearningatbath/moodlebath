@@ -1271,7 +1271,7 @@ private function create_course_for_cohort($cohort_data){
 	}
     private function add_stu_code($user,$fieldid){
         global $DB;
-        $stu_sql = "SELECT uid.`id` FROM {user_info_data} uid JOIN {user_info_field} uif ON uid.`fieldid` = uof.`id` AND uif.id = ? WHERE uid.`userid` = ?";
+        $stu_sql = "SELECT uid.`id` FROM {user_info_data} uid JOIN {user_info_field} uif ON uid.`fieldid` = uif.`id` AND uif.id = ? WHERE uid.`userid` = ?";
         if(!$DB->record_exists_sql($stu_sql,array($fieldid,$user->id))){
             //Fetch the STU CODE from SAMIS
             try{

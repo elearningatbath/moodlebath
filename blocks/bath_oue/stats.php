@@ -7,8 +7,11 @@ require_once($CFG->dirroot . '/local/sits/lib/sits_client_request.class.php');
 $username = optional_param('username',NULL, PARAM_ALPHANUM);
 	//Fun stuff!
 	$report = new report();
-		$sits = new sits($report);
-		if(!$sits){
+
+		try{
+			$sits = new sits($report);
+		}
+		catch(\Exception $e){
 			$result['sits_error'] = true;
 			echo json_encode($result);
 			die();

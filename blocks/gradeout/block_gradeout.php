@@ -52,11 +52,13 @@ class block_gradeout extends block_base {
 			$DB->update_record('block',$thisblock);
 		}
 		$this->report = new report(); // Added as it requires it - Hittesh
-		$sits = new sits($this->report); //Added as it requires it - Hittesh
-		if(!$sits){
-			//SITS is offline
-			 mtrace("Delaying exporting QA53 grades until SITS is back online");
-			 return false;
+		try{
+			$sits = new sits($this->report); //Added as it requires it - Hittesh
+		}
+		catch(\Exception $e){
+			$e->getMessage();
+			mtrace("Delaying exporting QA53 grades until SITS is back online");
+			return false;
 		}
 		$cur_ac_year = $sits->get_current_academic_year();
 		$courses = explode(',', $CFG->block_gradeout_courses);

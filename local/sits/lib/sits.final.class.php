@@ -21,11 +21,15 @@ final class sits extends sits_db {
         }
         //Set report
         $this->report = $report;
-
-        if(!$this->dbh){
-            $this->report->log_report(2, 'Could not establish connection to the Oracle database');
-            return false;
+        try{
+            if(!$this->dbh){
+                $this->report->log_report(2, 'Could not establish connection to the Oracle database');
+            }
         }
+        catch(\Exception $e){
+            throw new \Exception($e->getMessage(),null,$e);
+        }
+
         //Set date
         $this->date = new DateTime();
         

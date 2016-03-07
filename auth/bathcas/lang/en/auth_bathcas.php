@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_bathcas', language 'en', branch 'MOODLE_20_STABLE'
+ * Strings for component 'auth_bathcas', language 'en'.
  *
  * @package   auth_bathcas
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,8 +29,8 @@ $string['auth_bathcas_baseuri'] = 'URI of the server (nothing if no baseUri)<br 
 $string['auth_bathcas_baseuri_key'] = 'Base URI';
 $string['auth_bathcas_broken_password'] = 'You cannot proceed without changing your password, however there is no available page for changing it. Please contact your Moodle Administrator.';
 $string['auth_bathcas_cantconnect'] = 'LDAP part of CAS-module cannot connect to server: {$a}';
-$string['auth_bathcas_casversion'] = 'Version';
-$string['auth_bathcas_certificate_check'] = 'Turn this to \'yes\' if you want to validate the server certificate';
+$string['auth_bathcas_casversion'] = 'CAS protocol version';
+$string['auth_bathcas_certificate_check'] = 'Select \'yes\' if you want to validate the server certificate';
 $string['auth_bathcas_certificate_path_empty'] = 'If you turn on Server validation, you need to specify a certificate path';
 $string['auth_bathcas_certificate_check_key'] = 'Server validation';
 $string['auth_bathcas_certificate_path'] = 'Path of the CA chain file (PEM Format) to validate the server certificate';
@@ -44,23 +43,34 @@ $string['auth_bathcas_hostname'] = 'Hostname of the CAS server <br />eg: host.do
 $string['auth_bathcas_hostname_key'] = 'Hostname';
 $string['auth_bathcas_changepasswordurl'] = 'Password-change URL';
 $string['auth_bathcas_invalidcaslogin'] = 'Sorry, your login has failed - you could not be authorised';
-$string['auth_bathcas_language'] = 'Selected language';
+$string['auth_bathcas_language'] = 'Select language for authentication pages';
 $string['auth_bathcas_language_key'] = 'Language';
 $string['auth_bathcas_logincas'] = 'Secure connection access';
-$string['auth_bathcas_logoutcas'] = 'Turn this to \'yes\' if you want to logout from CAS when you disconnect from Moodle';
-$string['auth_bathcas_logoutcas_key'] = 'Logout CAS';
-$string['auth_bathcas_multiauth'] = 'Turn this to \'yes\' if you want to have multi-authentication (CAS + other authentication)';
+$string['auth_bathcas_logout_return_url_key'] = 'Alternative logout return URL';
+$string['auth_bathcas_logout_return_url'] = 'Provide the URL that CAS users shall be redirected to after logging out.<br />If left empty, users will be redirected to the location that moodle will redirect users to';
+$string['auth_bathcas_logoutcas'] = 'Select \'yes\' if you want to logout from CAS when you disconnect from Moodle';
+$string['auth_bathcas_logoutcas_key'] = 'CAS logout option';
+$string['auth_bathcas_multiauth'] = 'Select \'yes\' if you want to have multi-authentication (CAS + other authentication)';
 $string['auth_bathcas_multiauth_key'] = 'Multi-authentication';
 $string['auth_bathcasnotinstalled'] = 'Cannot use CAS authentication. The PHP LDAP module is not installed.';
 $string['auth_bathcas_port'] = 'Port of the CAS server';
 $string['auth_bathcas_port_key'] = 'Port';
-$string['auth_bathcas_proxycas'] = 'Turn this to \'yes\' if you use CASin proxy-mode';
+$string['auth_bathcas_proxycas'] = 'Select \'yes\' if you use CAS in proxy-mode';
 $string['auth_bathcas_proxycas_key'] = 'Proxy mode';
 $string['auth_bathcas_server_settings'] = 'CAS server configuration';
 $string['auth_bathcas_text'] = 'Secure connection';
 $string['auth_bathcas_use_cas'] = 'Use CAS';
-$string['auth_bathcas_version'] = 'Version of CAS';
+$string['auth_bathcas_version'] = 'CAS protocol version to use';
 $string['CASform'] = 'Authentication choice';
 $string['noldapserver'] = 'No LDAP server configured for CAS! Syncing disabled.';
-$string['pluginname'] = 'BathCAS (SSO)';
-$string['start_tls_key'] = 'Use TLS';
+$string['pluginname'] = 'BathCAS server (SSO)';
+
+/*Bath specific strings*/
+$string['not_registered'] = '
+<div class="subcontent loginsub">
+<p>Whilst you have successfully logged into the system,you need to complete Registration, including paying any outstanding fees, in order to have full access to youraccount (including access to Moodle).</p>
+<p><a href="http://www.bath.ac.uk/registration-on-line/">RegistrationOn-Line</a></p></div>';
+$string['registered_no_moodle'] = '
+<div class="subcontent loginsub">
+<p>Whilst you have successfully logged into the system,this account <strong>({$a})</strong> does not have permission to use Moodle.Please email e-Learning (<a href="mailto:e-learning@bath.ac.uk">e-learning@bath.ac.uk</a>) for support.</p>
+</div>';

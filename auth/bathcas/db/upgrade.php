@@ -17,7 +17,7 @@
 /**
  * CAS authentication plugin upgrade code
  *
- * @package    auth_cas
+ * @package    auth_bathcas
  * @copyright  2013 Iñaki Arenaza
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -45,14 +45,17 @@ function xmldb_auth_bathcas_upgrade($oldversion) {
         if ($cas_language = get_config('auth/bathcas', 'language')) {
             set_config('language', 'CAS_Languages_'.ucfirst($cas_language), 'auth/bathcas');
         }
-        if (get_config('start_tls', 'auth/bathcas') === false) {
-        	set_config('start_tls', 0, 'auth/bathcas');
-        }
 
         upgrade_plugin_savepoint(true, 2013091700, 'auth', 'bathcas');
     }
 
     // Moodle v2.6.0 release upgrade line.
+    // Put any upgrade step following this.
+
+    // Moodle v2.7.0 release upgrade line.
+    // Put any upgrade step following this.
+
+    // Moodle v2.8.0 release upgrade line.
     // Put any upgrade step following this.
 
     return true;

@@ -82,8 +82,6 @@ class samisPush
         //Prepare student details
         $student = new \stdClass();
         $student->username = $completiondata->username;
-        //TODO this is only for SAMIS (test) change this when we go live
-        $student->username = $completiondata->username . '-xx';
         //Prepare grading details
         $grade = $this->grading_data($completiondata->timecompleted);
         //Fetch the period slot code for the student

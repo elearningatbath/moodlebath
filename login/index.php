@@ -352,9 +352,7 @@ if (isloggedin() and !isguestuser()) {
     echo $OUTPUT->confirm(get_string('alreadyloggedin', 'error', fullname($USER)), $logout, $continue);
     echo $OUTPUT->box_end();
 } else {
-    //include("index_form.html");
-    //Bath hack - do not include form, include local instructions
-	include($CFG->dirroot."/local/login_alternatives.php");
+    include("index_form.html");
     if ($errormsg) {
         $PAGE->requires->js_init_call('M.util.focus_login_error', null, true);
     } else if (!empty($CFG->loginpageautofocus)) {

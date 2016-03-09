@@ -23,6 +23,7 @@ final class sits extends sits_db {
         $this->report = $report;
         try{
             if(!$this->dbh){
+                throw new \Exception ("Cannot connect to SITS ! Exiting !");
                 $this->report->log_report(2, 'Could not establish connection to the Oracle database');
             }
         }

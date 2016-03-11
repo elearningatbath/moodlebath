@@ -34,7 +34,9 @@ class enrol_sits_renderer extends plugin_renderer_base {
             }
             $content .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'action', 'value' => 'bulkchange'));
             $content .= html_writer::table($table);
-            $content .= html_writer::start_tag('div', array('class' => 'singleselect bulkuserop'));
+            /* SOT: Added the class sitsbulkuserop below to fix the displaying of a table in the Sits/Manage Mappings/ Enrolled Users filtering
+            It did not work in Firefox version 38 only*/
+            $content .= html_writer::start_tag('div', array('class' => 'singleselect bulkuserop sitsbulkuserop'));
             $content .= html_writer::start_tag('select', array('name' => 'bulkuserop'));
             $content .= html_writer::tag('option', get_string('withselectedusers', 'enrol'), array('value' => ''));
             $options = array('' => get_string('withselectedusers', 'enrol'));
@@ -188,8 +190,9 @@ class sits_course_enrolment_table extends html_table implements renderable {
         $this->perpage        = optional_param(self::PERPAGEVAR, self::DEFAULTPERPAGE, PARAM_INT);
         $this->sort           = optional_param(self::SORTVAR, self::DEFAULTSORT, PARAM_ALPHANUM);
         $this->sortdirection  = optional_param(self::SORTDIRECTIONVAR, self::DEFAULTSORTDIRECTION, PARAM_ALPHA);
-
-        $this->attributes = array('class'=>'userenrolment');
+        /* SOT: ADDED TO THE CSS class fftable to fix the displaying of a table in the Sits/Manage Mappings/ Enrolled Users filtering
+        It did not work in Firefox version 38 only*/
+        $this->attributes = array('class'=>'userenrolment fftable');
         if (!in_array($this->sort, $this->sortablefields)) {
             $this->sort = self::DEFAULTSORT;
         }

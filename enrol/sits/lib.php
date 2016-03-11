@@ -66,6 +66,19 @@ class enrol_sits_plugin extends enrol_plugin implements i_sits_sync
         }
     }
 
+    /**
+     * Is it possible to hide/show enrol instance via standard UI?
+     *
+     * @param stdClass $instance
+     * @return bool
+     */
+    public function can_hide_show_instance($instance) {
+        $context = context_course::instance($instance->courseid);
+        return has_capability('enrol/sits:config', $context);
+    }
+
+
+
     //Main Cron method
     public function cron() {    	
     	GLOBAL $CFG;
@@ -548,13 +561,7 @@ sql;
         }else{
 			// Condition to check for users with no info record 
 			//As users were being added without having any other info like fn,sn we want to skip those objects completely.
-            $this->require_authplugin();
-			$newinfo = $this->authplugin->get_userinfo($username);
-			if(!$newinfo)
-			{
-				return false;
-			}
-            $user = create_user_record($username, null, 'bathcas');
+            $user = $this->create_user_record($username, null, 'bathcas');
             if(is_object($user)){
                 $this->created_users++;
                 return $user;
@@ -563,6 +570,78 @@ sql;
                 return false;
             }
         }
+    }
+    public function create_user_record($username, $password, $auth = 'bathcas') {
+        global $CFG, $DB;
+        require_once($CFG->dirroot.'/user/profile/lib.php');
+        require_once($CFG->dirroot.'/user/lib.php');
+
+        // Just in case check text case.
+        $username = trim(core_text::strtolower($username));
+
+        $authplugin = get_auth_plugin($auth);
+        $customfields = $authplugin->get_custom_user_profile_fields();
+        $newuser = new stdClass();
+        if ($newinfo = $authplugin->get_userinfo($username,true)) {
+            $newinfo = truncate_userinfo($newinfo);
+            foreach ($newinfo as $key => $value) {
+                if (in_array($key, $authplugin->userfields) || (in_array($key, $customfields))) {
+                    $newuser->$key = $value;
+                }
+            }
+        }
+        if(!$newinfo['access']){
+            mtrace("This user $username cannot be created in Moodle as it does not have the :Moodle flag $username");
+            return false;
+        }
+        if (!empty($newuser->email)) {
+            if (email_is_not_allowed($newuser->email)) {
+                unset($newuser->email);
+            }
+        }
+        //Bath mod - if email exists in database use blank
+        if(isset($newuser->email)) {
+            $dupe = $DB->get_record('user',array('email'=>$newuser->email));
+            if(is_object($dupe) && $dupe->email == $newuser->email){
+                $newuser->email = '';
+            }
+        }
+        //End Bath mod
+        if (!isset($newuser->city)) {
+            $newuser->city = '';
+        }
+
+        $newuser->auth = $auth;
+        $newuser->username = $username;
+
+        // Fix for MDL-8480
+        // user CFG lang for user if $newuser->lang is empty
+        // or $user->lang is not an installed language.
+        if (empty($newuser->lang) || !get_string_manager()->translation_exists($newuser->lang)) {
+            $newuser->lang = $CFG->lang;
+        }
+        $newuser->confirmed = 1;
+        $newuser->lastip = getremoteaddr();
+        $newuser->timecreated = time();
+        $newuser->timemodified = $newuser->timecreated;
+        $newuser->mnethostid = $CFG->mnet_localhost_id;
+
+        $newuser->id = user_create_user($newuser, false, false);
+
+        // Save user profile data.
+        profile_save_data($newuser);
+
+        $user = get_complete_user_data('id', $newuser->id);
+        if (!empty($CFG->{'auth_'.$newuser->auth.'_forcechangepassword'})) {
+            set_user_preference('auth_forcepasswordchange', 1, $user);
+        }
+        // Set the password.
+        update_internal_user_password($user, $password);
+
+        // Trigger event.
+        \core\event\user_created::create_from_userid($newuser->id)->trigger();
+
+        return $user;
     }
 	public function undelete_user($objUser){
 		global $DB;

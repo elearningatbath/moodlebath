@@ -561,7 +561,8 @@ class auth_plugin_bathcas extends auth_plugin_ldap {
                 echo $OUTPUT->footer();
                 die();
             }
-
+            //if sits enrol plugin is used, continue creating the obj as later it will
+            //be disregarded by create_user_object ( that way it doesnt kill the script)
         }
 
         //Set a boolean flag to return, picked up in create_user_record - al412

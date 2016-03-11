@@ -562,7 +562,7 @@ sql;
 			// Condition to check for users with no info record 
 			//As users were being added without having any other info like fn,sn we want to skip those objects completely.
             $this->require_authplugin();
-			$newinfo = $this->authplugin->get_userinfo($username);
+			$newinfo = $this->authplugin->get_userinfo($username,true);
 			if(!$newinfo)
 			{
 				return false;

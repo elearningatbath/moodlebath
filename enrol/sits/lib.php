@@ -591,7 +591,7 @@ sql;
             }
         }
         if(!$newinfo['access']){
-            mtrace("This user $username cannot be created in Moodle as it does not have the :Moodle flag $username");
+            $this->log_report(1,"This user $username cannot be created in Moodle as it does not have the :Moodle flag",'log');
             return false;
         }
         if (!empty($newuser->email)) {

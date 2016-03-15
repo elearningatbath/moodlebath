@@ -1,0 +1,27 @@
+/* Custom CSS
+-------------------------*/
+a.logo {
+    background: url([[pix:theme|logo]]) no-repeat 0 0;
+    display: block;
+    float: left;
+    height: 75px;
+    padding: 0;
+    margin: 15px 10px 10px;
+    width: 250px;
+    
+}
+
+.dir-rtl a.logo {
+    background: url([[setting:logo]]) no-repeat 100% 0;
+    display: block;
+    float: right;
+}
+
+
+#page-mod-glossary-showentry table.glossarypopup {
+    font-size: 100%;
+}
+
+/* Custom CSS Settings
+-------------------------*/
+[[setting:customcss]]

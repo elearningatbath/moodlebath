@@ -97,7 +97,8 @@ class mod_forum_mod_form extends moodleform_mod {
         $options[FORUM_DISALLOWSUBSCRIBE] = get_string('subscriptiondisabled','forum');
         $mform->addElement('select', 'forcesubscribe', get_string('subscriptionmode', 'forum'), $options);
         $mform->addHelpButton('forcesubscribe', 'subscriptionmode', 'forum');
-
+	/* TRAC ticket to set default option to AUTO Hittesh */
+	$mform->setDefault('forcesubscribe',FORUM_INITIALSUBSCRIBE);
         $options = array();
         $options[FORUM_TRACKING_OPTIONAL] = get_string('trackingoptional', 'forum');
         $options[FORUM_TRACKING_OFF] = get_string('trackingoff', 'forum');

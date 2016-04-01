@@ -16,6 +16,10 @@ function local_bath_send_completion_data_scheduled_task($task_lastruntime)
     $courseids = explode(",", $courselist);
     $completed_users_data = null;
     $lastcrontime = $config_vars->lastcron;
+    if($lastcrontime == ''){
+        //Set last cron time to be the current data
+        set_config('lastcron',time(),'local_bath_send_completion_data');
+    }
     foreach ($courseids as $courseid) {
         try {
             if ($objCourse = $DB->get_record('course', ['id' => $courseid])) {

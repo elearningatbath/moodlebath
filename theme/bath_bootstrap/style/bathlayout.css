@@ -1,0 +1,258 @@
+html {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background: #fff url([[pix:theme|core/bground]]) repeat-x fixed;
+    color:#4b4b4b;
+    font-size:13px;
+   /* padding-top:40px; /*Prevent overlapping of content with the navbar*/
+}
+#page-wrapper {
+    width:90%;
+    margin: 0 auto;
+    background: transparent;
+}
+#page {
+    width: 100%;
+    margin: 0 auto;
+    padding:0;
+    background: transparent;
+}
+#page-content {
+    position:relative;    /* fixes IE7 overflow hidden bug stoping layout jumping out of place */
+    clear:both;
+    float:left;
+    width:100%;            /* width of whole page */
+    overflow:hidden;        /* This chops off any overhanging divs */
+    background: #fff;        /* Left column background colour */
+   font-size:larger;
+}
+#region-main-box {
+    float:left;
+    width:200%;
+    position:relative;
+    left:220px;
+    background: #fff;        /* Centre column background colour */
+}
+#region-post-box {
+    float:left;
+    width:100%;
+    position:relative;
+    left:50%;
+    margin-left: -440px;
+    background: #eee;        /* Right column background colour */
+}
+#region-main-wrap {
+    float:right;
+    width:50%;
+    position:relative;
+    right:100%;
+}
+#region-main-pad {
+    margin:0 10px 0 450px;
+    overflow:hidden;
+}
+#region-main {
+    /*width:100%;*/ 
+    overflow:hidden;
+    margin-right:10px;
+   margin-top:10px;
+}
+#region-pre {
+    float:left;
+    width:220px;
+    position:relative;
+    margin-left:-50%;
+    left:220px;
+    overflow:hidden;
+}
+aside#block-region-side-pre {
+	/*float:left;
+    width:220px;
+    position:relative;
+    /*margin-left:-50%;
+    left:220px;*/
+    overflow:hidden;
+    background: #D1E0E7;
+}
+#region-post {
+    float:left;
+    width:220px;
+    position:relative;
+    left:0px;
+    overflow:hidden;
+}
+aside#block-region-side-post{
+	/*float:left;
+    /*width:220px;*/
+    /*position:relative;
+    left:0px;*/
+    overflow:hidden;
+   background: #EEE;
+}
+#page-content #region-main-box .region-content {
+    margin: 0;
+    padding:0;
+}
+/*Fix grading display issues to match 2.8 themes*/
+#page-grade-report-grader-index #region-main .region-content{
+    overflow:auto;
+}
+#page-content {
+    font-size:larger;
+}
+.course-content {
+	font-size:12px;
+}
+#page-site-index .headingblock {
+    margin-bottom:9px;
+    margin-left: 3px;
+}
+/*
+Block Region Layout
+-----------------------*/
+#region-pre .block-region {
+    float: left;
+    width: 220px;
+    margin: 0;
+    padding: 0;
+}
+#region-post .block-region {
+    float: right;
+    width: 220px;
+    margin: 0;
+    padding: 0;
+}
+aside#block-region-side-pre .block-region{
+	    float: left;
+    width: 220px;
+    margin: 0;
+    padding: 0;
+}
+aside#block-region-side-post .block-region {
+    float: right;
+    width: 220px;
+    margin: 0;
+    padding: 0;	
+}
+
+/*
+PLEASE DO NOT ALTER THESE SETTINGS UNLESS YOU KNOW WHAT YOU ARE DOING AS IT WILL BREAK PAGE LAYOUT
+------------------------------------------------------------------------------------------------*/
+/*
+SIDE-PRE-ONLY (Left Column + Middle Column)
+----------------------------------------*/
+.side-pre-only #region-main-box {width: 200%; left: 220px;}
+.side-pre-only #region-post-box {width: 100%; left: 50%; margin-left: -220px; background-color: #fff;}
+.side-pre-only #region-main-wrap {width: 50%; right: 100%;}
+.side-pre-only #region-main-pad {margin: 0px 10px 0px 230px;}
+.side-pre-only #region-main {width: 100%;}
+.side-pre-only #region-pre {width: 220px; left: 0px; margin-left:-50%;}
+.side-pre-only #region-post {width: 0px; left: 0px;}
+/*
+SIDE-PRE-ONLY - BOOTSTRAP (Left Column + Middle Column)
+----------------------------------------*/
+.block-region-side-pre-only #block-region-side-post{width:0px;} 
+.block-region-side-pre-only #region-bs-main-and-pre{width:100%;}
+.block-region-side-pre-only #region-main{margin-right: 8px;}
+/*SIDE-POST-ONLY (Middle Column + Right Column)
+------------------------------------------*/
+.side-post-only #page-content { background-color: #fff;}
+.side-post-only #region-main-box {width: 200%; left: 220px;}
+.side-post-only #region-post-box {width: 100%; left: 50%; margin-left: -440px;}
+.side-post-only #region-main-wrap {width: 50%; right: 100%;}
+.side-post-only #region-main-pad {margin: 0px 10px 0px 230px;}
+.side-post-only #region-main {width: 100%;}
+.side-post-only #region-pre {width: 0px;left: 0px;}
+.side-post-only #region-post {width: 220px; left: 0px;}
+/*SIDE-POST-ONLY - BOOTSTRAP(Middle Column + Right Column)
+------------------------------------------*/
+.block-region-side-post-only aside#block-region-side-pre {width: 0px;}
+.block-region-side-post-only #region-main{width: 100%;margin-right: -10px;}
+/*
+SIDE-POST-ONLY WHEN MOVING BLOCKS (Left Column + Middle Column + Right Column)
+---------------------------------------------------------------------------*/
+.blocks-moving.side-post-only #region-main-box {left: 220px;}
+.blocks-moving.side-post-only #region-post-box {margin-left: -440px;}
+.blocks-moving.side-post-only #region-main-pad {margin: 0 10px 0 450px;}
+.blocks-moving.side-post-only #region-pre {width: 220px;left: 220px;}
+.blocks-moving.side-post-only #region-post {width: 220px;left: 0px;}
+/*Bootstrap*/
+.blocks-moving.side-post-only #block-region-side-pre {width: 220px;left: 220px;}
+.blocks-moving.side-post-only #block-region-side-post {width: 220px;left: 0px;}
+/*
+CONTENT ONLY - NO SIDE BLOCKS WHATSOEVER (Middle Column Only)
+----------------------------------------------------------*/
+.content-only #page-content { background-color: #fff;}
+.content-only #region-main-box {width: 200%; left: 0px;}
+.content-only #region-post-box {width: 100%; left: 50%; margin-left: 0px; background-color: #fff;}
+.content-only #region-main-wrap {width: 50%; right: 100%;}
+.content-only #region-main-pad {margin: 0px 10px 0px 10px;}
+.content-only #region-main {width: 100%;padding-left: 15px;} /*Added padding to fix docks overlay*/
+.content-only #region-pre { width:0;left:0;}
+.content-only #region-post { width: 0;left:0;}
+/*Bootstrap*/
+.content-only aside#block-region-side-pre{ width:0;left:0;}
+.content-only aside#block-region-side-post{ width: 0;left:0;}
+.content-only #region-bs-main-and-pre{width:100%;margin-left:10px}
+.content-only #region-main{margin-right: 8px;}
+.path-admin #assignrole {width: 100%;}
+/*
+ View Enrolled Users Page
+ */
+#page-enrol-users .userenrolment .r0{background-color: #f0f0f0;}
+#page-enrol-users table.userenrolment td, #page-enrol-users table.userenrolment th{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #DDD;
+	vertical-align: middle;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.userenrolment .col_role .addrole , .userenrolment .col_group .addgroup {
+	background-color: #D1E0E7;
+	border: 1px solid #CAE6F3;
+}
+.userenrolment .col_group .addgroup a img {
+vertical-align: baseline;
+}
+#page-enrol-users .enrol_user_buttons {float:right;}
+#page-enrol-users .enrol_user_buttons .singlebutton {margin-top: 2px; line-height: 2;}
+#page-enrol-users .enrol_user_buttons .enrolusersbutton {margin-left:1em;display:inline;}
+#page-enrol-users .enrol_user_buttons .enrolusersbutton div,
+#page-enrol-users .enrol_user_buttons .enrolusersbutton form {display:inline;}
+#page-enrol-users .enrol_user_buttons .enrolusersbutton input {padding-left:6px;padding-right:6px;}
+#page-enrol-users.dir-rtl .col_userdetails .subfield_picture {float: right;}
+#page-enrol-users #filterform div,
+#page-enrol-users #filterform fieldset {display:inline;float:left;clear:none;width:auto;margin:0;line-height:2;}
+#page-enrol-users #filterform .fitem {white-space:pre;}
+#page-enrol-users #filterform fieldset>div {display:block;float:left;background:#f2f2f2;padding:2px;}
+#page-enrol-users #filterform select,
+#page-enrol-users #filterform .ftext input {width:8em;}
+#page-enrol-users #filterform #fitem_id_role,
+#page-enrol-users #filterform #fitem_id_ifilter,
+#page-enrol-users #filterform #fgroup_id_buttons {margin-left:0.5em;}
+#page-enrol-users #filterform .fselect #id_filtergroup{width:10em;}
+#page-enrol-users .paging { clear: right; }
+.mform fieldset div {
+    margin: 0 10px 10px;
+}
+/*Bath Alert Message */
+#bath-alert{
+	font-size:14px;
+	padding:10px;
+	text-align:center;
+	font-weight:normal;
+	border: 1px dashed;
+	background-color:#ED5656;
+	color:#FFF;
+}
+#bath-alert a{
+	color: #FFF;
+	text-decoration:underline;
+	font-weight:bold;
+}

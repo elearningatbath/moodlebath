@@ -16,3 +16,7 @@
 	path = blocks/panopto
 	url = https://github.bath.ac.uk/e-learning/panopto-block
 	branch= bath_review
+[submodule "theme/lambda"]
+	path = theme/lambda
+	url = https://github.bath.ac.uk/e-learning/Lambda-Moodle-theme.git
+	branch = lambda-white-bg-bath

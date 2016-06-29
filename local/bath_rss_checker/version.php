@@ -27,5 +27,6 @@
 
 $plugin->version  = 1112201200;
 $plugin->requires = 2010112400;
+$plugin->component = 'local_bath_rss_checker';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = 1.0;

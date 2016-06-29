@@ -5,7 +5,7 @@
   #oue_notice{
 	padding:10px;
 	border: 1px solid #E2DFDF;
-	background:#9450A2;
+	  background-color: [[setting:maincolor]];
 	/*text-shadow: 2px 2px 2px #FBFAFC;*/
 	min-height:20px;
 	position:fixed;

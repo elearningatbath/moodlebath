@@ -6,7 +6,7 @@
 	url = https://github.com/jmcgettrick/moodle-mod_turnitintooltwo
 [submodule "plagiarism/turnitin"]
 	path = plagiarism/turnitin
-	url = https://github.bath.ac.uk/e-learning/plagiarism_turnitin
+	url = https://github.com/elearningatbath/plagiarism_turnitin
 	branch = tii_bath_version
 [submodule "local/ltiprovider"]
 	path = local/ltiprovider
@@ -14,9 +14,9 @@
 	branch = MOODLE_27_STABLE
 [submodule "blocks/panopto"]
 	path = blocks/panopto
-	url = https://github.bath.ac.uk/e-learning/panopto-block
+	url = https://github.com/elearningatbath/panopto_bath
 	branch= bath_review
 [submodule "theme/lambda"]
 	path = theme/lambda
-	url = https://github.bath.ac.uk/e-learning/Lambda-Moodle-theme.git
+	url = https://github.com/elearningatbath/Lambda-Moodle-theme.git
 	branch = lambda-white-bg-bath

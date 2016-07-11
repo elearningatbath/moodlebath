@@ -5,7 +5,7 @@
   #oue_notice{
 	padding:10px;
 	border: 1px solid #E2DFDF;
-	background:#9450A2;
+	  background-color: [[setting:maincolor]];
 	/*text-shadow: 2px 2px 2px #FBFAFC;*/
 	min-height:20px;
 	position:fixed;
@@ -71,17 +71,6 @@ width: 0;
 	padding-top: 10px;
 }
 .block_bath_oue  #oue_link{
-        -moz-box-shadow:inset 10px 0px 33px -40px #ffffff;
-        -webkit-box-shadow:inset 10px 0px 33px -40px #ffffff;
-        box-shadow:inset 10px 0px 33px -40px #ffffff;
-        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #e49bf5));
-        background:-moz-linear-gradient(top, #ffffff 5%, #e49bf5 100%);
-        background:-webkit-linear-gradient(top, #ffffff 5%, #e49bf5 100%);
-        background:-o-linear-gradient(top, #ffffff 5%, #e49bf5 100%);
-        background:-ms-linear-gradient(top, #ffffff 5%, #e49bf5 100%);
-        background:linear-gradient(to bottom, #ffffff 5%, #e49bf5 100%);
-        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e49bf5',GradientType=0);
-        background-color:#ffffff;
         display:inline-block;
         font-family:arial;
         font-size:12px;
@@ -91,7 +80,8 @@ width: 0;
 		text-align: center;
         cursor:pointer;
         margin-top:10px;
-        border: 2px outset buttonface;
+		color :#FFF;
+		background-color: [[setting:maincolor]];
         
 }
     #oue_link:active {

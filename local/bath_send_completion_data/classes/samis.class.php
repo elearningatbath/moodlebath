@@ -199,7 +199,7 @@ class samisPush
          * SMR Table
          */
         $grade->smr_agrd = date('d/m/Y H:i:s', $cc_date_time); // Formatted agreed mark
-        $grade->smr_rslt = 'C'; //Result of Module
+        $grade->smr_rslt = 'P'; //Result of Module
         $grade->smr_coma = 1; //Completed Number
         $grade->smr_cred = 0.00; //Credits passed
         $grade->smr_proc = 'COM'; //Process status

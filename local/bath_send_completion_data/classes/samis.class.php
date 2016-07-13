@@ -193,7 +193,7 @@ class samisPush
         /*
          * SAS Table
          */
-        $grade->sas_agrg = 'C'; //Agreed Grade
+        $grade->sas_agrg = 'P'; //Agreed Grade
         $grade->sas_coma = 1;
         /*
          * SMR Table

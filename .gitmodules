@@ -19,4 +19,4 @@
 [submodule "theme/lambda"]
 	path = theme/lambda
 	url = https://github.com/elearningatbath/Lambda-Moodle-theme.git
-	branch = lambda-white-bg-bath
+	branch = lambda-white-bath-v151

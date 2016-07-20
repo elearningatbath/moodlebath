@@ -15,7 +15,7 @@
 [submodule "blocks/panopto"]
 	path = blocks/panopto
 	url = https://github.com/elearningatbath/panopto_bath
-	branch= bath_review
+	branch= bath_review_proxy
 [submodule "theme/lambda"]
 	path = theme/lambda
 	url = https://github.com/elearningatbath/Lambda-Moodle-theme.git

@@ -82,11 +82,13 @@ class enrol_sits_plugin extends enrol_plugin implements i_sits_sync
     //Main Cron method
     public function cron() {    	
     	GLOBAL $CFG;
-    	
+        $sits_cron_select = get_config('block_sits','sits_cron_select');
+        $sits_hour_of_sync = get_config('block_sits','sits_hour_of_sync');
+        $sits_cron_days = get_config('block_sits','sits_cron_days');
     	$cronday = false;
-		if(!empty($CFG->sits_cron_days))
+		if(!empty($sits_cron_days))
 		{
-			$cron_daysofweek = explode(',', $CFG->sits_cron_days);
+			$cron_daysofweek = explode(',', $sits_cron_days);
 			$now_dayofweek = date('N');
 			if(in_array($now_dayofweek, $cron_daysofweek))
 			{
@@ -94,7 +96,8 @@ class enrol_sits_plugin extends enrol_plugin implements i_sits_sync
 			}
 		}
 
-    	switch($CFG->sits_cron_select){
+
+    	switch($sits_cron_select){
     		case 0:
     		default: //Full sync is off, or else the variable has an unrecognised value - do nothing
     			mtrace('Full Sync is Off');
@@ -103,7 +106,7 @@ class enrol_sits_plugin extends enrol_plugin implements i_sits_sync
     		case 1: //Cron is set to Daily
     			$now = new DateTime();
     			$last_cron_sync = new DateTime($CFG->sits_last_cron_sync);
-    			if($now->format('Y-m-d') != $last_cron_sync->format('Y-m-d') && (int)$now->format('G') >= $CFG->sits_hour_of_sync && $cronday){
+    			if($now->format('Y-m-d') != $last_cron_sync->format('Y-m-d') && (int)$now->format('G') >= $sits_hour_of_sync && $cronday){
     				//sync has not run today and it's past the hour - mark it, and do it
     				set_config('sits_last_cron_sync', $now->format('Y-m-d H:i:s'));
     				mtrace('Full Sync set to Daily, and it is time - running a Full Sync...');
@@ -123,8 +126,8 @@ class enrol_sits_plugin extends enrol_plugin implements i_sits_sync
     
     private function run_full_sync(){
     	GLOBAL $CFG;
-   
-    	if($CFG->sits_remove_orphans == 1){
+        $sits_remove_orphans = get_config('block_sits','sits_remove_orphans');
+    	if($sits_remove_orphans == 1){
     		mtrace('Beginning orphaned mappings removal...');
     		if($this->remove_orphaned_mappings()){
     			mtrace('Completed orphaned mappings removal');
@@ -1228,7 +1231,7 @@ private function create_course_for_cohort($cohort_data){
      */
     private function process_sync($rh, $mapping){
     	GLOBAL $DB,$CFG;
-
+        $sits_moodle_staff_area = get_config('block_sits','sits_moodle_staff_area');
     	//Ensure instance exists of this on the course
     	$instance = $DB->get_record("enrol", array("courseid" => $mapping->courseid, "enrol" => "sits"));
     	
@@ -1301,8 +1304,8 @@ private function create_course_for_cohort($cohort_data){
                     }
                 }
 		//Hittesh Ahuja - Ticket #1041 
-				if(!empty($CFG->sits_moodle_staff_area)){
-					$objStaffCourse = $DB->get_record('course', array('id'=>$CFG->sits_moodle_staff_area), '*', MUST_EXIST);	
+				if(!empty($sits_moodle_staff_area)){
+					$objStaffCourse = $DB->get_record('course', array('id'=>$sits_moodle_staff_area), '*', MUST_EXIST);
 					if($role_id == 3 && !empty($objStaffCourse->id)){
 						if(!$this->add_user_staff_area_course($user->id,$objStaffCourse,5)){
 						//Something went wrong,log it

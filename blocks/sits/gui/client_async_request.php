@@ -20,8 +20,7 @@ if (isguestuser()) {
     print_error('guestsarenotallowed', '', $returnurl); //FIXME need more security than this
 }
 //Grab the request:
-$op = $_POST['op'];
-$xml = stripslashes($_POST['xml']);
+$op  = required_param('op', PARAM_RAW);
+$xml = stripslashes(required_param('xml',PARAM_RAW));
 
 new sits_client_request($op, $xml);
-?>

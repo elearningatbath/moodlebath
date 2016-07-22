@@ -994,7 +994,7 @@ sits_block.asyncRequest = function (op, xml) {
 	  failure:responseFailure
 	};
 	
-	transaction = YAHOO.util.Connect.asyncRequest('POST', sits_block.sUrl, callback, 'op=' + op + '&xml=' + escape(xml));
+	transaction = YAHOO.util.Connect.asyncRequest('POST', sits_block.sUrl, callback, 'op=' + op + '&xml=' + escape(xml) + '&sesskey='+M.cfg.sesskey);
 };
 	
 sits_block.create_batch_xml = function (courseid)
@@ -1890,4 +1890,13 @@ sits_block.course_init = function (courseid) {
     //sits_block.switch_view('cohort');
     //sits_block.toggle_dates('add');
     //sits_block.set_group_options();
+};
+ sits_block.open_samis_cohort_window = function(){
+	window.open("$CFG->wwwroot/blocks/sits/gui/mappings_interface.php?courseid=$COURSE->id","samis_user_interface","height=700,width=700,status=yes,resizable=yes,scrollbars=yes,location=no");
+};
+ sits_block.open_samis_admin_window =function(){
+	window.open("$CFG->wwwroot/blocks/sits/gui/samis_admin_interface.php","samis_admin_interface","height=700,width=800,status=yes,toolbar=no,menubar=no,scrollbars=1,location=no,resizable=yes");
+};
+sits_block.open_samis_add_user_window =function(){
+	window.open("$CFG->wwwroot/blocks/sits/gui/samis_add_user_interface.php?courseid=$COURSE->id","samis_add_user_interface","height=700,width=587,status=yes,toolbar=no,menubar=no,scrollbars=yes,location=no,resizable=yes");
 };

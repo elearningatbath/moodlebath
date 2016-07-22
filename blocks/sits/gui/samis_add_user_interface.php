@@ -8,7 +8,6 @@
  */
 
 require_once('../../../config.php');
-GLOBAL $CFG;
 
 require_once($CFG->dirroot . '/group/lib.php');
 require_once($CFG->dirroot . '/lib/grouplib.php');
@@ -18,9 +17,6 @@ require_login();
 if (isguestuser()) {
 	print_error('guestsarenotallowed', '', $returnurl); //FIXME need more security than this
 }
-
-require_login();
-//require_capability('enrol/manual:config', $context);
 
 //Add BUCS Users to Moodle
 //$PAGE->set_url('/blocks/sits/view.php', array('courseid'=>$course->id));

@@ -41,3 +41,9 @@ $string['enrol_not_linked'] = 'Not mapped from SAMIS';
 $string['sits:addinstance'] = 'Add a new SAMIS block';
 $string['sits_moodle_staff_area_label'] = 'Moodle Staff Area Course ID';
 $string['sits_moodle_staff_area_desc'] ='Please enter course id number (not idnumber)';
+
+$string['sits_enable_block_on'] ='On';
+$string['sits_enable_block_off'] ='Off';
+$string['sits_option_daily'] = 'Daily';
+$string['sits_option_continous'] = 'Continous';
+

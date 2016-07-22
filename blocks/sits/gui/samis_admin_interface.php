@@ -7,7 +7,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once('../../../config.php');
-GLOBAL $CFG;
 
 require_once($CFG->dirroot . '/group/lib.php');
 require_once($CFG->dirroot . '/lib/grouplib.php');
@@ -18,8 +17,6 @@ if (isguestuser()) {
     print_error('guestsarenotallowed', '', $returnurl); //FIXME need more security than this
 }
 
-//require_login($course);
-//require_capability('enrol/manual:config', $context);
 
 
 //$PAGE->set_url('/blocks/sits/view.php', array('courseid'=>$course->id));

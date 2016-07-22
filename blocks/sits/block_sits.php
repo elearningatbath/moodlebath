@@ -74,7 +74,7 @@ html;
                 $markup .= '<br/><a href="#" onclick="sits_block.open_samis_admin_window();">' . get_string('sits_admin','block_sits') . '</a>';
             }
         }else{
-            $markup = '<b>The block is currently disabled</b>.<br/><br/>' . $CFG->sits_disable_message . '</br/>';
+            $markup = '<b>The block is currently disabled</b>.<br/><br/>' . get_config('block_sits','sits_disable_message') . '</br/>';
         }
             //Administrator Only Functionality
             if(has_capability('moodle/site:config', $context)){

@@ -64,23 +64,14 @@ class block_sits extends block_base {
         if($sits_gui_enabled){
             $markup = <<<html
 <script type="text/javascript">
-    function open_samis_cohort_window(){
-        window.open("$CFG->wwwroot/blocks/sits/gui/mappings_interface.php?courseid=$COURSE->id","samis_user_interface","height=700,width=700,status=yes,resizable=yes,scrollbars=yes,location=no");
-    }
-    function open_samis_admin_window(){
-        window.open("$CFG->wwwroot/blocks/sits/gui/samis_admin_interface.php","samis_admin_interface","height=700,width=800,status=yes,toolbar=no,menubar=no,scrollbars=1,location=no,resizable=yes");
-    }
-    function open_samis_add_user_window(){
-        window.open("$CFG->wwwroot/blocks/sits/gui/samis_add_user_interface.php?courseid=$COURSE->id","samis_add_user_interface","height=700,width=587,status=yes,toolbar=no,menubar=no,scrollbars=yes,location=no,resizable=yes");
-    }
 </script>
-<a href="#" onclick="open_samis_cohort_window();">$cohorts_title</a><br/>
-<a href="#" onclick="open_samis_add_user_window();">$adduser_title</a>
+<a href="#" onclick="sits_block.open_samis_cohort_window();">$cohorts_title</a><br/>
+<a href="#" onclick="sits_block.open_samis_add_user_window();">$adduser_title</a>
 html;
 
             if(has_capability('moodle/site:config', $context)){
                 $markup .= '<br/>---';
-                $markup .= '<br/><a href="#" onclick="open_samis_admin_window();">' . get_string('sits_admin','block_sits') . '</a>';
+                $markup .= '<br/><a href="#" onclick="sits_block.open_samis_admin_window();">' . get_string('sits_admin','block_sits') . '</a>';
             }
         }else{
             $markup = '<b>The block is currently disabled</b>.<br/><br/>' . $CFG->sits_disable_message . '</br/>';

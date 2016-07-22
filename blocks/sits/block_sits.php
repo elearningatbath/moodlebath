@@ -34,7 +34,6 @@ class block_sits extends block_base {
     function get_content()
     {
         global $CFG, $COURSE;
-        //$context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
         $context = context_course::instance($COURSE->id);
         if(has_capability('moodle/course:update', $context))
         {
@@ -58,12 +57,11 @@ class block_sits extends block_base {
 
     function set_content(){
         GLOBAL $CFG, $COURSE;
-        // $context = get_context_instance(CONTEXT_COURSE, 1);
-        $context = context_course::instance(1);
+        $context = context_system::instance();
         $cohorts_title = get_string('link_cohorts','block_sits');
         $adduser_title = get_string('add_user','block_sits');
-
-        if($CFG->sits_gui_enabled){
+        $sits_gui_enabled = get_config('block_sits', 'sits_gui_enabled');
+        if($sits_gui_enabled){
             $markup = <<<html
 <script type="text/javascript">
     function open_samis_cohort_window(){

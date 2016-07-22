@@ -7,20 +7,25 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once($CFG->dirroot.'/mod/forum/lib.php');
-$options = array('Off', 'On');
-
+$options = array(
+    get_string('sits_enable_block_off','block_sits'),
+    get_string('sits_enable_block_on','block_sits'),
+);
 $settings->add(new admin_setting_configselect('sits_gui_enabled', get_string('sits_gui_label', 'block_sits'),
 get_string('sits_gui_desc', 'block_sits'), 1, $options));
 
 $settings->add(new admin_setting_configtext('sits_disable_message', get_string('sits_disable_label', 'block_sits'),
 get_string('sits_disable_desc', 'block_sits'), get_string('sits_disable_text', 'block_sits'), $paramtype=PARAM_RAW, $size=70));
  
-$options = array('Off', 'Daily', 'Continuous');
+$options = array(get_string('sits_enable_block_off','block_sits'), get_string('sits_option_daily','block_sits'), get_string('sits_option_continous','block_sits'));
 // Default whether user needs to mark a post as read
 $settings->add(new admin_setting_configselect('sits_cron_select', get_string('sits_cron_label', 'block_sits'),
 get_string('config_select_desc', 'block_sits'), 1, $options));
 
-$options = array('Off', 'On');
+$options = array(
+    get_string('sits_enable_block_off','block_sits'),
+    get_string('sits_enable_block_on','block_sits'),
+);
 $settings->add(new admin_setting_configselect('sits_remove_orphans', get_string('sits_orphan_label', 'block_sits'),
 get_string('sits_orphan_desc', 'block_sits'), 1, $options));
 

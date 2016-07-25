@@ -282,6 +282,11 @@
 .path-mod-assign .submissionlinks,
 .path-mod-assign .submissionaction {
     text-align: center;
+    /*Readonly fix*/
+   display:none;
+}
+#page-mod-assign-view .submissionlinks{
+    display:block;
 }
 
 .path-mod-assign .submissionsummarytable .c0,
@@ -307,4 +312,37 @@
 }
 .path-mod-assign .editsubmissionform label[for="id_submissionstatement"] {
     display: inline-block;
+}
+/*Readonly fix*/
+.gradingtable .generaltable td[id^=mod_assign_grading] img{
+     display: none;}
+.togglecompletion input[type="image"]{
+    display:none;
+}
+.autocompletion img{
+    display:none;
+}
+#page-mod-assign-view .submissionlinks{
+    display:block;
+}
+#id_quickgrading{
+    display:none;
+}
+.gradingtable .generaltable textarea[id^=quickgrade_comments_]{
+
+}
+#fitem_id_savequickgrades input[name=savequickgrades]{
+    display:none;
+}
+/* Edit stuff on the quick grading page */
+.gradeform input[id=id_savegrade],
+.gradeform input[id=id_saveandshownext]{
+    display:none;
+}
+
+.gradingtable .generaltable td[id^=mod_assign_grading] img{
+    display:block;
+}
+.gradingtable .generaltable td[id^=mod_assign_grading] a.yui3-menu-label img{
+    display:none;
 }

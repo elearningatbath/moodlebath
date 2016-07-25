@@ -57,7 +57,7 @@ class block_sits extends block_base {
 
     function set_content(){
         GLOBAL $CFG, $COURSE;
-        $context = context_system::instance();
+        $context = context_course::instance(1);
         $cohorts_title = get_string('link_cohorts','block_sits');
         $adduser_title = get_string('add_user','block_sits');
         $sits_gui_enabled = get_config('block_sits', 'sits_gui_enabled');

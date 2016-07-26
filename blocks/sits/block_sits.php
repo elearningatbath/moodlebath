@@ -61,11 +61,12 @@ class block_sits extends block_base {
         $cohorts_title = get_string('link_cohorts','block_sits');
         $adduser_title = get_string('add_user','block_sits');
         $sits_gui_enabled = get_config('block_sits', 'sits_gui_enabled');
+
+
         if($sits_gui_enabled){
             $markup = <<<html
-<script type="text/javascript">
-</script>
-<a href="#" onclick="sits_block.open_samis_cohort_window();">$cohorts_title</a><br/>
+<script src="/blocks/sits/gui/js/sits_block.js" type="text/javascript"></script>
+<a href="#" onclick="sits_block.open_samis_cohort_window($COURSE->id);">$cohorts_title</a><br/>
 <a href="#" onclick="sits_block.open_samis_add_user_window();">$adduser_title</a>
 html;
 

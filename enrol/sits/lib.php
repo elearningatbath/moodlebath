@@ -1414,6 +1414,7 @@ private function create_course_for_cohort($cohort_data){
      */    
     private function remove_enrols_for_mapping($mapping, $students_only = false){
     	GLOBAL $DB, $CFG;
+        $courseid = $mapping->courseid;
     	if($students_only){
     		$sql = <<<sql
 	SELECT sme.*,roleid
@@ -1455,11 +1456,12 @@ sql;
     			return false;
     		}
             else{
-                $ue->lastenrol = true; // means user not enrolled any more
+                //TODO look at this after upgrade
+                $ue->lastenrol = false; // means user not enrolled any more
                 //Trigger the event once a user is unenrolled from the course
                  $event = core\event\user_enrolment_deleted::create(
                      array(
-                         'courseid' => $mapping->courseid,
+                         'courseid' => $courseid,
                          'context' => $context,
                          'relateduserid' => $userid,
                          'objectid' => $enrol->u_enrol_id,

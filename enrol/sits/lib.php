@@ -1353,26 +1353,56 @@ private function create_course_for_cohort($cohort_data){
 	}
     private function add_stu_code($user,$fieldid){
         global $DB;
-        $stu_sql = "SELECT uid.`id` FROM {user_info_data} uid JOIN {user_info_field} uif ON uid.`fieldid` = uif.`id` AND uif.id = ? WHERE uid.`userid` = ?";
+        $stu_sql = "SELECT uid.`id` AS `uid_id`,uid.`data` FROM {user_info_data} uid JOIN {user_info_field} uif ON uid.`fieldid` = uif.`id` AND uif.id = ? WHERE uid.`userid` = ?";
         if(!$DB->record_exists_sql($stu_sql,array($fieldid,$user->id))){
             //Fetch the STU CODE from SAMIS
+            //Insert a new record
+            $stu_code = $this->sits->get_stu_code($user->username);
             try{
-                $stu_code = $this->sits->get_stu_code($user->username);
                 if(is_object($stu_code)){
                     $record = new stdClass();
                     $record->data = $stu_code->STU_CODE;
                     $record->userid = $user->id;
                     $record->fieldid = $fieldid;
                     //Insert the STU CODE in Moodle profile field (used mainly for Offline Grading Worksheet)
-                    return $DB->insert_record('user_info_data',$record);
+                    $DB->insert_record('user_info_data',$record);
+                    return true;
                 }
             }
             catch(\Exception $e){
                 $this->report->log_report(1,'Could not insert STU field for username {$user->username}');
                 return false;
             }
+
         }
+        else{
+            //Record exists
+            $stu_code_data = $DB->get_record_sql($stu_sql,array($fieldid,$user->id));
+            if($stu_code_data->uid_id && $stu_code_data->data == ''  ){
+                $stu_code = $this->sits->get_stu_code($user->username);
+                try{
+                    if(is_object($stu_code)){
+                        $record = new stdClass();
+                        $record->data = $stu_code->STU_CODE;
+                        $record->userid = $user->id;
+                        $record->id = $stu_code_data->uid_id;
+                        $record->fieldid = $fieldid;
+                        //Insert the STU CODE in Moodle profile field (used mainly for Offline Grading Worksheet)
+                        $DB->update_record('user_info_data',$record);
+                        return true;
+                    }
+                }
+                catch(\Exception $e){
+                    $this->report->log_report(1,'Could not insert STU field for username {$user->username}');
+                    return false;
+                }
+            }
+        }
+
+
+        return true;
     }
+
     /**
      * Enrols a user on a course with a role
      * @return bool true on adding the user to the course, false if not

@@ -13,7 +13,7 @@ M.OUE.init = function (Y, username) {
             //Event handler called when the transaction begins
             //We show the loader image
             var loaderGIF = M.util.image_url('spinner', 'block_' + M.OUE.blockname);
-            Y.one('#survey_loading').setStyle('height', '64px')
+            Y.one('#survey_loading').setStyle('height', '124px')
             Y.one('#survey_loading').setStyle('background', 'url(' + loaderGIF + ') center no-repeat')
         }
         var onEnd = function (days) {

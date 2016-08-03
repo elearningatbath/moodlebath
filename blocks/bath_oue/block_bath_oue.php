@@ -13,6 +13,7 @@ class block_bath_oue extends block_base
         global $OUTPUT,$USER,$CFG,$COURSE;
 		$CFG->jsrev = -1;
         if ($this->content !== null) {
+        if ($this->content !== null) {
             return $this->content;
         }
         if (!isloggedin()) {

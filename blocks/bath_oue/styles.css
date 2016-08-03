@@ -117,7 +117,7 @@ background:url([[pix:blocks_bath_oue|warning]]) #FAC7C7  center center no-repeat
 
 	/* gets rid of default border in Firefox and Opera. */ 
 	/*border: 1px solid #656565; Orignal*/
-	border: 1px solid #491155;/* Version #1 */
+	border: 1px solid #75485c;/* Version #1 */
 
 	/* Needs to be in here for Safari polyfill so background images work as expected. */
 	background-size: auto;
@@ -147,17 +147,17 @@ background:url([[pix:blocks_bath_oue|warning]]) #FAC7C7  center center no-repeat
 /******* Progressbar foreground****/
 /* IE10 */
 .block_bath_oue  progress {
-    color: #9450A2;
+    color: [[setting:maincolor]];
 }
 
 /* Firefox */
 .block_bath_oue  progress::-moz-progress-bar { 
-    background: #9450A2;	
+    background: [[setting:maincolor]];
 }
 
 /* Chrome */
 .block_bath_oue  progress::-webkit-progress-value {
-   background: #9450A2;
+   background: [[setting:maincolor]];
 }
 
 

@@ -193,13 +193,13 @@ class samisPush
         /*
          * SAS Table
          */
-        $grade->sas_agrg = 'C'; //Agreed Grade
+        $grade->sas_agrg = 'P'; //Agreed Grade
         $grade->sas_coma = 1;
         /*
          * SMR Table
          */
         $grade->smr_agrd = date('d/m/Y H:i:s', $cc_date_time); // Formatted agreed mark
-        $grade->smr_rslt = 'C'; //Result of Module
+        $grade->smr_rslt = 'P'; //Result of Module
         $grade->smr_coma = 1; //Completed Number
         $grade->smr_cred = 0.00; //Credits passed
         $grade->smr_proc = 'COM'; //Process status

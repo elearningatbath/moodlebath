@@ -4927,9 +4927,9 @@ class assign {
         $info = new stdClass();
         if ($blindmarking) {
             $userfrom = clone($userfrom);
-            $info->username = get_string('participant', 'assign') . ' ' . $uniqueidforuser;
-            $userfrom->firstname = get_string('participant', 'assign');
-            $userfrom->lastname = $uniqueidforuser;
+            $info->username = $userfrom->firstname." ".$userfrom->lastname;
+            //$userfrom->firstname = get_string('participant', 'assign');
+            //$userfrom->lastname = $uniqueidforuser;
             $userfrom->email = $CFG->noreplyaddress;
         } else {
             $info->username = fullname($userfrom, true);

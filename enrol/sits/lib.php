@@ -1470,7 +1470,7 @@ sql;
 					//Only Teachers
 					//echo "\n Converting teacher to manual enrolment : Role assignment id : $enrol->ra_id \n";
 					if(!$this->convert_to_manual($enrol,$mapping)){
-						echo "Could not convert user enrolment ".$enrol->u_enrol_id." to Manual \n";
+						//echo "Could not convert user enrolment ".$enrol->u_enrol_id." to Manual \n";
 						$this->report->log_report(1,'Could not convert user enrolment '.$enrol->u_enrol_id.' to Manual');
 					}
 				}
@@ -1481,28 +1481,31 @@ sql;
 			}
             //Get user_enrolment details to be used by the delete event
             $ue = $DB->get_record('user_enrolments',array('id' => $enrol->u_enrol_id));
-    		if(!$DB->delete_records('user_enrolments', array('id' => $enrol->u_enrol_id))){
-    			$this->report->log_report(1, 'Could not delete user_enrolments record with id  ' . $enrol->u_enrol_id);
-    			return false;
-    		}
-            else{
-                //TODO look at this after upgrade
-                $ue->lastenrol = false; // means user not enrolled any more
-                //Trigger the event once a user is unenrolled from the course
-                 $event = core\event\user_enrolment_deleted::create(
-                     array(
-                         'courseid' => $courseid,
-                         'context' => $context,
-                         'relateduserid' => $userid,
-                         'objectid' => $enrol->u_enrol_id,
-                         'other' => array(
+            if($ue){
+                if(!$DB->delete_records('user_enrolments', array('id' => $enrol->u_enrol_id))){
+                    $this->report->log_report(1, 'Could not delete user_enrolments record with id  ' . $enrol->u_enrol_id);
+                    return false;
+                }
+                else{
+                    //TODO look at this after upgrade
+                    $ue->lastenrol = false; // means user not enrolled any more
+                    //Trigger the event once a user is unenrolled from the course
+                    $event = core\event\user_enrolment_deleted::create(
+                        array(
+                            'courseid' => $courseid,
+                            'context' => $context,
+                            'relateduserid' => $userid,
+                            'objectid' => $enrol->u_enrol_id,
+                            'other' => array(
                                 'enrol' =>  'sits',
                                 'userenrolment' => (array)$ue
-                         )
-                     )
-                 );
-                $event->trigger();
+                            )
+                        )
+                    );
+                    $event->trigger();
+                }
             }
+
 
 
     		if(!$DB->delete_records('role_assignments', array('id' => $enrol->ra_id))){

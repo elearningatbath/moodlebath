@@ -9,6 +9,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2016092700;
+$plugin->version = 2016010300;
 $plugin->cron    = 1;
 $plugin->component = 'enrol_sits';

@@ -1464,8 +1464,8 @@ sql;
     	$context = context_course::instance($mapping->courseid,MUST_EXIST);
     	foreach($mapping_enrols as $enrol){
 			
-			// #903 - Staff memberships not migrated 
-			//Fix to make sure teachers are converted to manual enrolments first
+			// #903 - Staff memberships not migrated.
+			// Fix to make sure teachers are converted to manual enrolments first.
 				if ($enrol->roleid == 3) {
 					//Only Teachers
 					//echo "\n Converting teacher to manual enrolment : Role assignment id : $enrol->ra_id \n";
@@ -1475,6 +1475,8 @@ sql;
 					}
 				}
 			$userid = $DB->get_field('user_enrolments', 'userid', array('id' => $enrol->u_enrol_id));
+            // If user has a manual enrolment in a group ,leave it alone ; else remove it.
+
 			if(!groups_delete_group_members($mapping->courseid, $userid))
 			{
 				$this->report->log_report(1, 'Could not delete user from group ' . $enrol->u_enrol_id);

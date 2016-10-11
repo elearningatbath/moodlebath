@@ -1738,6 +1738,7 @@ sql;
                 //If you want to reset to mapping to the SITS period code
                 $period->start->sub(new DateInterval('P' . $this->default_mod_start_minus . 'D'));
                 $period->end->add(new DateInterval('P' . $this->default_mod_end_plus . 'D'));
+                $default_mapping = \stdClass();
                 $default_mapping->start_date = $period->start->format('Y-m-d H:i:s');
                 $default_mapping->end_date = $period->end->format('Y-m-d H:i:s');
                 if(!$this->update_mapping($default_mapping)){

@@ -1477,10 +1477,10 @@ sql;
 			$userid = $DB->get_field('user_enrolments', 'userid', array('id' => $enrol->u_enrol_id));
             // If user has a manual enrolment in a group ,leave it alone ; else remove it.
 
-			if(!groups_delete_group_members($mapping->courseid, $userid))
+/*			if(!groups_delete_group_members($mapping->courseid, $userid))
 			{
 				$this->report->log_report(1, 'Could not delete user from group ' . $enrol->u_enrol_id);
-			}
+			}*/
             //Get user_enrolment details to be used by the delete event
             $ue = $DB->get_record('user_enrolments',array('id' => $enrol->u_enrol_id));
             if($ue){

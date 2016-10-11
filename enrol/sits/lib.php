@@ -80,7 +80,9 @@ class enrol_sits_plugin extends enrol_plugin implements i_sits_sync
 
 
     //Main Cron method
-    public function cron() {    	
+    public function cron() {
+        //Set time to unlimited just in case
+        ini_set('max_execution_time',0);
     	GLOBAL $CFG;
         $sits_cron_select = get_config('block_sits','sits_cron_select');
         $sits_hour_of_sync = get_config('block_sits','sits_hour_of_sync');

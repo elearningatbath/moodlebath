@@ -80,7 +80,9 @@ class enrol_sits_plugin extends enrol_plugin implements i_sits_sync
 
 
     //Main Cron method
-    public function cron() {    	
+    public function cron() {
+        //Set time to unlimited just in case
+        ini_set('max_execution_time',0);
     	GLOBAL $CFG;
         $sits_cron_select = get_config('block_sits','sits_cron_select');
         $sits_hour_of_sync = get_config('block_sits','sits_hour_of_sync');
@@ -1464,45 +1466,50 @@ sql;
     	$context = context_course::instance($mapping->courseid,MUST_EXIST);
     	foreach($mapping_enrols as $enrol){
 			
-			// #903 - Staff memberships not migrated 
-			//Fix to make sure teachers are converted to manual enrolments first
+			// #903 - Staff memberships not migrated.
+			// Fix to make sure teachers are converted to manual enrolments first.
 				if ($enrol->roleid == 3) {
 					//Only Teachers
 					//echo "\n Converting teacher to manual enrolment : Role assignment id : $enrol->ra_id \n";
 					if(!$this->convert_to_manual($enrol,$mapping)){
-						echo "Could not convert user enrolment ".$enrol->u_enrol_id." to Manual \n";
+						//echo "Could not convert user enrolment ".$enrol->u_enrol_id." to Manual \n";
 						$this->report->log_report(1,'Could not convert user enrolment '.$enrol->u_enrol_id.' to Manual');
 					}
 				}
 			$userid = $DB->get_field('user_enrolments', 'userid', array('id' => $enrol->u_enrol_id));
-			if(!groups_delete_group_members($mapping->courseid, $userid))
+            // If user has a manual enrolment in a group ,leave it alone ; else remove it.
+
+/*			if(!groups_delete_group_members($mapping->courseid, $userid))
 			{
 				$this->report->log_report(1, 'Could not delete user from group ' . $enrol->u_enrol_id);
-			}
+			}*/
             //Get user_enrolment details to be used by the delete event
             $ue = $DB->get_record('user_enrolments',array('id' => $enrol->u_enrol_id));
-    		if(!$DB->delete_records('user_enrolments', array('id' => $enrol->u_enrol_id))){
-    			$this->report->log_report(1, 'Could not delete user_enrolments record with id  ' . $enrol->u_enrol_id);
-    			return false;
-    		}
-            else{
-                //TODO look at this after upgrade
-                $ue->lastenrol = false; // means user not enrolled any more
-                //Trigger the event once a user is unenrolled from the course
-                 $event = core\event\user_enrolment_deleted::create(
-                     array(
-                         'courseid' => $courseid,
-                         'context' => $context,
-                         'relateduserid' => $userid,
-                         'objectid' => $enrol->u_enrol_id,
-                         'other' => array(
+            if($ue){
+                if(!$DB->delete_records('user_enrolments', array('id' => $enrol->u_enrol_id))){
+                    $this->report->log_report(1, 'Could not delete user_enrolments record with id  ' . $enrol->u_enrol_id);
+                    return false;
+                }
+                else{
+                    //TODO look at this after upgrade
+                    $ue->lastenrol = false; // means user not enrolled any more
+                    //Trigger the event once a user is unenrolled from the course
+                    $event = core\event\user_enrolment_deleted::create(
+                        array(
+                            'courseid' => $courseid,
+                            'context' => $context,
+                            'relateduserid' => $userid,
+                            'objectid' => $enrol->u_enrol_id,
+                            'other' => array(
                                 'enrol' =>  'sits',
                                 'userenrolment' => (array)$ue
-                         )
-                     )
-                 );
-                $event->trigger();
+                            )
+                        )
+                    );
+                    $event->trigger();
+                }
             }
+
 
 
     		if(!$DB->delete_records('role_assignments', array('id' => $enrol->ra_id))){
@@ -1733,6 +1740,7 @@ sql;
                 //If you want to reset to mapping to the SITS period code
                 $period->start->sub(new DateInterval('P' . $this->default_mod_start_minus . 'D'));
                 $period->end->add(new DateInterval('P' . $this->default_mod_end_plus . 'D'));
+                $default_mapping = \stdClass();
                 $default_mapping->start_date = $period->start->format('Y-m-d H:i:s');
                 $default_mapping->end_date = $period->end->format('Y-m-d H:i:s');
                 if(!$this->update_mapping($default_mapping)){
